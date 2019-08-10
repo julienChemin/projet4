@@ -1,0 +1,209 @@
+/*
+#004c8c h1
+
+#056bb3 body color
+
+#2682c4 shadow-box
+
+#74bbe4 border
+
+#f1f2f6 body background-color
+*/
+body{
+	background-color: #f1f2f6;
+	color: #000;
+
+	font-size: 1.3em;
+
+	margin: 0px;
+}
+.container{
+	max-width: 1200px;
+	margin: auto;
+}
+.full_width{
+	width: 100%;
+}
+h1, h2, h3{
+	text-align: center;
+	color: #004c8c;
+}
+h1{
+	font-size: 3em;
+}
+h2{
+	font-size: 2em;
+}
+h3{
+	font-size: 1.5em;
+}
+a{
+	text-decoration: none;
+	color: #056bb3;
+}
+strong{
+	font-weight: normal;
+}
+
+/* ------------------------ FORM ------------------------ */
+form{
+	text-align: center;
+}
+input[type="text"]{
+	padding: 5px;
+
+	border-radius: 5px;
+	border: solid 2px #74bbe4;
+}
+input[type="text"]:focus{
+	outline: none;
+	border: solid 2px #004c8c;
+}
+textarea{
+	width: 70%;
+	height: 100px;
+
+	padding: 5px;
+
+	border: solid 2px #74bbe4;
+	border-radius: 10px;
+
+	resize: none;
+}
+textarea:focus{
+	outline: none;
+	border: solid 2px #004c8c;
+}
+input[type="submit"]{
+	padding: 5px;
+
+	background-color: white;
+	color: #004c8c;
+
+	font-weight: bolder;
+
+	border: solid 2px #74bbe4;
+	border-radius: 10px;
+
+	cursor: pointer;
+}
+
+/* ------------------------ ERROR ------------------------ */
+#msg{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	margin-top: 100px;
+}
+#msg span{
+	font-size: 1.5em;
+}
+
+/* ------------------------ BLOC INFO ------------------------ */
+.info{
+	text-align: right;
+	margin: 20px;
+}
+.infoComment{
+	text-align: center;
+	margin: 20px;
+}
+
+/* ------------------------ NAVBAR ------------------------ */
+#navbar{
+	background-color: white;
+	border-bottom: solid 2px #74bbe4;
+}
+#navbar > div{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	color: #056bb3;
+}
+#navbar > div > span:nth-child(1){
+	font-size: 1.5em;
+}
+#navbar ul{
+	list-style: none;
+
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+#navbar li{
+	margin: 0 10px;
+}
+
+/* ------------------------ HERO ------------------------ */
+#hero_img{
+	background-image: url("../images/alaska.png");
+	background-attachment: fixed;
+	background-size: cover;
+
+	height: 400px;
+}
+#citation{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin: 30px 0;
+	padding: 10px;
+}
+#hero cite{
+	text-align: center;
+	font-size: 1.5em;
+}
+
+/* ------------------------ ARTICLES ------------------------ */
+.article{
+	background-color: white;
+	border:double 5px #74bbe4;
+	border-radius: 10px;
+
+	margin: 25px 0;
+	padding: 0 10px;
+	box-shadow: #2682c4 5px 5px 5px;
+}
+.article_content{
+	background-color: #f1f2f6;
+
+	border: solid 1.5px #74bbe4;
+	border-radius: 10px;
+
+	padding: 10px;
+}
+.article_author, .article_date_publication, .article_date_edit{
+	font-style: italic;
+}
+.link_comment{
+	text-align: right;
+}
+
+/* ------------------------ COMMENTS ------------------------ */
+.comment{
+	background-color: white;
+	border:double 5px #74bbe4;
+	border-radius: 10px;
+
+	margin: 25px 0;
+	padding: 0 10px;
+	box-shadow: #2682c4 5px 5px 5px;
+}
+.comment_author{
+	font-weight: bold;
+}
+.comment_content{
+	background-color: #f1f2f6;
+
+	border: solid 1.5px #74bbe4;
+	border-radius: 10px;
+
+	padding: 10px;
+}
+.comment_date_publication, .comment_edit{
+	font-style: italic;
+	text-align: right;
+}
