@@ -2,8 +2,8 @@
 
 $newComment = new Comment([
 'id_article' => $_POST['id_article'],
-'author' => $_POST['post_comment_pseudo'],
-'content' => $_POST['post_comment_content']]);
+'author' => htmlspecialchars($_POST['post_comment_pseudo']),
+'content' => htmlspecialchars($_POST['post_comment_content'])]);
 
 $CommentsManager -> set($newComment);
 

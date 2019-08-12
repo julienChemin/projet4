@@ -10,7 +10,7 @@ ob_start();
 ?>
 <!--display article-->
 <section id="articles" class="container">
-	<div class="article full_width">
+	<div class="article">
 		<h2><?=$article['title']?></h2>
 		<p class="article_content"><?=$article['content']?></p>
 		<p class="article_author"><?=$article['author']?></p>
@@ -47,7 +47,7 @@ ob_start();
 	if($comment = $Comments -> fetch()){
 		do{
 			?>
-			<div class="comment full_width">
+			<div class="comment">
 				<div class="info">
 					<a href="Jean-Forteroche.php?action=report&amp;id_comment=<?=$comment['id']?>">Signaler</a>
 				</div>
@@ -75,4 +75,4 @@ $content = ob_get_clean();
 $Article -> closeCursor();
 $Comments -> closeCursor();
 
-require('template.php');
+require('view/template.php');

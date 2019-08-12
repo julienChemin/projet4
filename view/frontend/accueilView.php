@@ -1,19 +1,16 @@
 <?php
 
-$ListArticles = $ArticlesManager -> getArticles();
+$LastArticle = $ArticlesManager -> getLastArticle();
+$article = $LastArticle -> fetch();
 
 ob_start();
 
-?>
-<!--display article-->
-<h1>Tout les articles</h1>
-<section id="articles" class="container">
+require('hero.php');
 
-<?php
-while($article = $ListArticles -> fetch()){
-	?>
-	<div class="article full_width">
-		<h2><?=$article['title']?></h2>
+?>
+<section id="articles" class="container">
+	<div class="article">
+		<h2>Dernier article publié :<br><?=$article['title']?></h2>
 		<p class="article_content">
 			<?php
 			if(strlen($article['content']) > 150){
@@ -36,13 +33,14 @@ while($article = $ListArticles -> fetch()){
 		?>
 		<p class="link_comment"><a href="Jean-Forteroche.php?action=article&amp;id_article=<?=$article['id']?>">Lire l'article</a></p>
 	</div>
-	<?php
-}
-?>
+
+	<div class="info">
+		Consulter <a href="Jean-Forteroche.php?action=listArticles">tout les articles</a>
+	</div>
 </section>
 <?php
 
 $content = ob_get_clean();
-$ListArticles -> closeCursor();
+$LastArticle -> closeCursor();
 
-require('template.php');
+require('view/template.php');

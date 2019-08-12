@@ -20,7 +20,7 @@ class Comment{
 			$method = 'set' . ucfirst($key);
 
 			if(method_exists($this, $method)){
-				$this -> $method(htmlspecialchars($value));
+				$this -> $method($value);
 			}
 		}
 	}

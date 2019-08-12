@@ -44,6 +44,11 @@ a{
 strong{
 	font-weight: normal;
 }
+i{
+	color: #056bb3;
+
+	margin: 0 5px;
+}
 
 /* ------------------------ FORM ------------------------ */
 form{
@@ -56,6 +61,16 @@ input[type="text"]{
 	border: solid 2px #74bbe4;
 }
 input[type="text"]:focus{
+	outline: none;
+	border: solid 2px #004c8c;
+}
+input[type="password"]{
+	padding: 5px;
+
+	border-radius: 5px;
+	border: solid 2px #74bbe4;
+}
+input[type="password"]:focus{
 	outline: none;
 	border: solid 2px #004c8c;
 }
@@ -109,16 +124,24 @@ input[type="submit"]{
 	text-align: center;
 	margin: 20px;
 }
+.infoError{
+	text-align: center;
+	margin: 20px;
+	color: red;
+}
 
 /* ------------------------ NAVBAR ------------------------ */
 #navbar{
 	background-color: white;
 	border-bottom: solid 2px #74bbe4;
+	height: 100px;
 }
 #navbar > div{
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	height: 100%;
 
 	color: #056bb3;
 }
@@ -134,6 +157,11 @@ input[type="submit"]{
 }
 #navbar li{
 	margin: 0 10px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+#navbar i{
+	font-size: 1.2em;
 }
 
 /* ------------------------ HERO ------------------------ */
@@ -158,7 +186,15 @@ input[type="submit"]{
 }
 
 /* ------------------------ ARTICLES ------------------------ */
+#articles{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
 .article{
+	width: 90%;
+
 	background-color: white;
 	border:double 5px #74bbe4;
 	border-radius: 10px;
@@ -184,6 +220,8 @@ input[type="submit"]{
 
 /* ------------------------ COMMENTS ------------------------ */
 .comment{
+	width: 90%;
+	
 	background-color: white;
 	border:double 5px #74bbe4;
 	border-radius: 10px;
@@ -206,4 +244,39 @@ input[type="submit"]{
 .comment_date_publication, .comment_edit{
 	font-style: italic;
 	text-align: right;
+}
+
+/* -----------------------------------------------------------------  ------------------------------------------------------- */
+/* --------------------------------------------------------------- ADMIN ---------------------------------------------------- */
+/* -----------------------------------------------------------------  ------------------------------------------------------- */
+#accueil_admin{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+#accueil_admin > a{
+	width: 25%;
+	height: 200px;
+
+	background-color: white;
+
+	border: solid 1.5px #74bbe4;
+	border-radius: 10px;
+	box-shadow: #2682c4 5px 5px 5px;
+
+	padding: 10px;
+}
+#accueil_admin div{
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+#accueil_admin h3{
+	margin-top: 0;
+}
+#accueil_admin i{
+	font-size: 3em;
 }

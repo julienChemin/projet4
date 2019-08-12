@@ -8,11 +8,12 @@ function chargerClass($class){
 spl_autoload_register('chargerClass');
 
 require('controller/frontend.php');
+require('controller/backend.php');
 
 /*---------------------------------*/
 
 try{
-	if(isset($_GET['action'])){
+	if(isset($_SESSION['pseudo']) && isset($_GET['action'])){
 		//list all articles
 		if($_GET['action'] === 'listArticles'){
 			listArticles();
@@ -34,15 +35,6 @@ try{
 				throw new Exception('Le formulaire doit etre remplit.');
 			}
 		}
-		//form for report
-		else if($_GET['action'] === 'report' && isset($_GET['id_comment'])){
-			$_GET['id_comment'] = (int) $_GET['id_comment'];
-			if($_GET['id_comment'] > 0){
-				report();
-			}else{
-				throw new Exception('Le commentaire est introuvable');
-			}
-		}
 		//"action" value is unknow
 		else{
 			throw new Exception('L\'action renseignée est inexistante.');
@@ -50,7 +42,7 @@ try{
 	}
 	//"action" undefined -> home
 	else{
-		accueil();
+		accueilAdmin();
 	}
 }
 catch(Exception $e){

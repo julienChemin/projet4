@@ -39,7 +39,7 @@ if($comment = $Comment -> fetch()){
 		//display comment to report
 		?>
 		<section id="comments" class="container">
-			<div class="comment full_width">
+			<div class="comment">
 				<p class="comment_author"><?=$comment['author']?></p>
 				<p class="comment_content"><?=$comment['content']?></p>
 				<p class="comment_date_publication"><?=$comment['date_publication']?></p>
@@ -61,4 +61,4 @@ $content = ob_get_clean();
 
 $Comment -> closeCursor();
 
-require('template.php');
+require('view/template.php');

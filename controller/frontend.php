@@ -3,7 +3,7 @@
 function accueil(){
 	$ArticlesManager = new ArticlesManager();
 
-	require('view/accueilView.php');
+	require('view/frontend/accueilView.php');
 }
 
 function error(string $error_msg){
@@ -11,30 +11,30 @@ function error(string $error_msg){
 		$error_msg = 'Une erreur inconnu est survenue, merci de réessayer.'; 
 	}
 	$message = $error_msg;
-	require('view/errorView.php');
+	require('view/frontend/errorView.php');
 }
 
 function listArticles(){
 	$ArticlesManager = new ArticlesManager();
 
-	require('view/articlesView.php');
+	require('view/frontend/articlesView.php');
 }
 
 function article(){
 	$ArticlesManager = new ArticlesManager();
 	$CommentsManager = new CommentsManager();
 
-	require('view/articleView.php');
+	require('view/frontend/articleView.php');
 }
 
 function postComment(){
 	$CommentsManager = new CommentsManager();
 	
-	require('view/postComment.php');
+	require('view/frontend/postComment.php');
 }
 
 function report(){
 	$CommentsManager = new CommentsManager();
 
-	require('view/report.php');
+	require('view/frontend/report.php');
 }
