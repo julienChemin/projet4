@@ -118,7 +118,7 @@ input[type="submit"]{
 /* ------------------------ BLOC INFO ------------------------ */
 .info{
 	text-align: right;
-	margin: 20px;
+	margin: 30px;
 }
 .infoComment{
 	text-align: center;
@@ -156,7 +156,7 @@ input[type="submit"]{
 	align-items: center;
 }
 #navbar li{
-	margin: 0 10px;
+	margin: 0 15px;
 	font-weight: bold;
 	font-size: 1.2em;
 }
@@ -249,6 +249,8 @@ input[type="submit"]{
 /* -----------------------------------------------------------------  ------------------------------------------------------- */
 /* --------------------------------------------------------------- ADMIN ---------------------------------------------------- */
 /* -----------------------------------------------------------------  ------------------------------------------------------- */
+
+/* ------------------------ HOME ------------------------ */
 #accueil_admin{
 	display: flex;
 	justify-content: space-around;
@@ -279,4 +281,21 @@ input[type="submit"]{
 }
 #accueil_admin i{
 	font-size: 3em;
+}
+
+/* ------------------------ ADD ARTICLE ------------------------ */
+#add_article form{
+	text-align: left;
+}
+#add_article input[type='text']{
+	width: 50%;
+}
+#add_article input[type='submit']{
+	font-size: 1.2em;
+}
+#add_article form > p:last-child{/*input submit*/
+	text-align: right;
+}
+#add_article textarea{
+	height: 500px;
 }

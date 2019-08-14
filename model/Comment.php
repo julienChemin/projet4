@@ -6,6 +6,7 @@ class Comment{
 			$_id_article,
 			$_content,
 			$_author,
+			$_author_is_admin,
 			$_date_publication,
 			$_author_edit,
 			$_date_edit,
@@ -40,6 +41,10 @@ class Comment{
 
 	public function author(){
 		return $this -> _author;
+	}
+
+	public function author_is_admin(){
+		return $this -> _author_is_admin;
 	}
 
 	public function date_publication(){
@@ -81,6 +86,10 @@ class Comment{
 		if(strlen($author) > 0){
 			$this -> _author = $author;
 		}
+	}
+
+	public function setAuthor_is_admin(bool $is_admin){
+		$this -> _author_is_admin = $is_admin;
 	}
 
 	public function setDate_publication($date){

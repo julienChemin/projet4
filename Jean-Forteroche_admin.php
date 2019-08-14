@@ -2,6 +2,10 @@
 
 session_start();
 
+if(!isset($_SESSION) && isset($_COOKIE['admin'])){
+	$_SESSION['pseudo'] = $_COOKIE['admin'];
+}
+
 function chargerClass($class){
 	require 'model/' . $class . '.php';
 }
@@ -34,6 +38,22 @@ try{
 			}else{
 				throw new Exception('Le formulaire doit etre remplit.');
 			}
+		}
+		//disconnect
+		else if($_GET['action'] === 'disconnect'){
+			disconnect();
+		}
+		//add article
+		else if($_GET['action'] === 'add'){
+			add();
+		}
+		//edit articles
+		else if($_GET['action'] === 'edit'){
+			edit();
+		}
+		//moderate comments
+		else if($_GET['action'] === 'moderate'){
+			moderate();
 		}
 		//"action" value is unknow
 		else{

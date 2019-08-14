@@ -3,3 +3,25 @@
 function accueilAdmin(){
 	require('view/backend/accueilAdminView.php');
 }
+
+function disconnect(){
+	require('view/backend/disconnect.php');
+}
+
+function add(){
+	$ArticlesManager = new ArticlesManager();
+
+	require('view/backend/add.php');
+}
+
+function edit(){
+	$ArticlesManager = new ArticlesManager();
+
+	require('view/backend/edit.php');
+}
+
+function moderate(){
+	$CommentsManager = new CommentsManager();
+
+	require('view/backend/moderate.php');
+}

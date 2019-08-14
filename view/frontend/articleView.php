@@ -12,7 +12,7 @@ ob_start();
 <section id="articles" class="container">
 	<div class="article">
 		<h2><?=$article['title']?></h2>
-		<p class="article_content"><?=$article['content']?></p>
+		<div class="article_content"><?=$article['content']?></div>
 		<p class="article_author"><?=$article['author']?></p>
 		<p class="article_date_publication">Le <?=$article['date_publication']?></p>
 		<?php
@@ -39,19 +39,24 @@ ob_start();
 			<input type="hidden" name="id_article" value="<?=$article['id']?>">
 		</p>
 		<p>
-			<input type="submit" name="sumbit" id="submit" value="Envoyer">
+			<input type="submit" name="submit" id="submit" value="Envoyer">
 		</p>
 	</form>
 	<!--display comments-->
 	<?php
 	if($comment = $Comments -> fetch()){
 		do{
+			//if comment's author is admin, display name in purple
+			$style ="";
+			if($comment['author_is_admin']){
+				$style = 'style="color:purple;"';
+			}
 			?>
 			<div class="comment">
 				<div class="info">
 					<a href="Jean-Forteroche.php?action=report&amp;id_comment=<?=$comment['id']?>">Signaler</a>
 				</div>
-				<p class="comment_author"><?=$comment['author']?></p>
+				<p class="comment_author"<?=$style?>><?=$comment['author']?></p>
 				<p class="comment_content"><?=$comment['content']?></p>
 				<p class="comment_date_publication"><?=$comment['date_publication']?></p>
 				<?php

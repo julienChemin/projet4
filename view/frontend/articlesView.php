@@ -14,19 +14,19 @@ while($article = $ListArticles -> fetch()){
 	?>
 	<div class="article">
 		<h2><?=$article['title']?></h2>
-		<p class="article_content">
+		<div class="article_content">
 			<?php
 			if(strlen($article['content']) > 150){
 				for($i =0; $i<150; $i++){
 					echo $article['content'][$i];
 				}
-				echo "...";
+				echo " ...";
 			}
 			else{
 				echo $article['content'];
 			}
 			?>	
-		</p>
+		</div>
 		<p class="article_author"><?=$article['author']?></p>
 		<p class="article_date_publication">Le <?=$article['date_publication']?></p>
 		<?php

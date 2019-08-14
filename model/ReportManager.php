@@ -2,7 +2,7 @@
 
 abstract class ReportManager extends Database{
 
-	public function getMostReportedComment(int $nb_reported_comments){
+	public function getMostReportedComments(int $nb_reported_comments){
 		if($nb_reported_comments > 0){
 			return $this -> sql('
 				SELECT id, id_article, content, nb_report, author, author_edit, FORMAT_DATE(date_publication, "%d/%m/%Y à %H:%i.%s") AS date_publication, FORMAT_DATE(date_edit, "%d/%m/%Y à %H:%i.%s") AS date_edit
@@ -13,7 +13,7 @@ abstract class ReportManager extends Database{
 		}
 	}
 
-	public function getLastReportedComment(int $nb_reported_comments){
+	public function getLastReportedComments(int $nb_reported_comments){
 		if($nb_reported_comments > 0){
 			return $this -> sql('
 				SELECT id, id_reported_comment, content, author, FORMAT_DATE(date_report, "%d/%m/%Y à %H:%i.%s") AS date_report

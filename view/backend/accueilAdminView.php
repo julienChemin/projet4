@@ -8,31 +8,36 @@ if(isset($_SESSION['pseudo'])){
 	<h1>Bienvenue, <?=$_SESSION['pseudo']?></h1>
 	<h2>Que souhaitez vous faire ?</h2>
 	<section id="accueil_admin" class="container">
-		<a href="Jean-Forteroche_admin.php">
+		<a href="Jean-Forteroche_admin.php?action=add">
 			<div>
 				<h3>Ajouter un article</h3>
 				<i class="fas fa-plus"></i>
 			</div>
 		</a>
-		<a href="Jean-Forteroche_admin.php">
+		<a href="Jean-Forteroche_admin.php?action=edit">
 			<div>
 				<h3>Editer un article</h3>
 				<i class="fas fa-pencil-alt"></i>
 			</div>
 		</a>
-		<a href="Jean-Forteroche_admin.php">
+		<a href="Jean-Forteroche_admin.php?action=moderate">
 			<div>
 				<h3>Modérer les commentaires</h3>
 				<i class="fas fa-comments"></i>
 			</div>
 		</a>
 	</section>
+	<p class="info"><a href="Jean-Forteroche.php?action=listArticles">Voir tout les articles</a></p>
 	<?php
 }
 else{
 	//user is not connected
 	if(isset($_POST['post_connect_pseudo']) && isset($_POST['post_connect_password'])){
 		//if user try to connect
+		if(isset($_POST['stayConnect'])){
+			setcookie('admin', $_POST['post_connect_pseudo'], time()+(365*24*3600), null, null, false, true);
+		}
+
 		$UserManager = new UserManager();
 
 		if($UserManager -> exists($_POST['post_connect_pseudo'])){
@@ -40,6 +45,7 @@ else{
 			if($UserManager -> checkPassword($_POST['post_connect_pseudo'], $_POST['post_connect_password'])){
 				//password is ok
 				$_SESSION['pseudo'] = htmlspecialchars($_POST['post_connect_pseudo']);
+				header('Location: Jean-Forteroche_admin.php');
 			}
 		}
 		else{
@@ -58,6 +64,10 @@ else{
 		<p>
 			<label for="post_connect_password">Mot de passe</label>
 			<input type="password" name="post_connect_password">
+		</p>
+		<p>
+			<label for="stayConnect">Rester connecté</label>
+			<input type="checkbox" name="stayConnect" value="true">
 		</p>
 		<p>
 			<input type="submit" name="submit" value="connection" required="">

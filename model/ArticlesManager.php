@@ -28,8 +28,8 @@ class ArticlesManager extends Database{
 
 	public function set(Article $Article){
 		$this -> sql(
-			'INSERT INTO articles (author, title, content, date_publication, date_edit) 
-			VALUES(:author, :title, :content, NOW(), null)',
+			'INSERT INTO articles (author, title, content, date_publication) 
+			VALUES(:author, :title, :content, NOW())',
 			[':author' => $Article -> author(), ':title' => $Article -> title(), ':content' => $Article -> content()]);
 	}
 
