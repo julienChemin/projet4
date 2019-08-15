@@ -18,7 +18,7 @@
 		
 		echo $content;
 
-		require('.gitignore/key.php');
+		require('gitignore/key.php');
 		?>
 		<!--TinyMCE-->
 		<script src='https://cdn.tiny.cloud/1/<?=$tinyMCEapiKey?>/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>

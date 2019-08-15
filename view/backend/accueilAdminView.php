@@ -47,6 +47,9 @@ else{
 				$_SESSION['pseudo'] = htmlspecialchars($_POST['post_connect_pseudo']);
 				header('Location: Jean-Forteroche_admin.php');
 			}
+			else{
+				$message = 'Le mot de passe est incorrecte';
+			}
 		}
 		else{
 			$message = 'L\'identifiant est incorrecte';

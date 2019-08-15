@@ -40,4 +40,14 @@ tinymce.init({
       
         xhr.send(formData);
     },
+    setup: editor => {
+        editor.on('init', () => {
+            if(document.getElementById("content")){
+                tinymce.activeEditor.setContent(document.getElementById("content").value);
+            }
+        });
+    },
 });
+
+//tinymce.activeEditor.setContent('document.getElementById("tinyMCEtextarea").value');
+//tinyMCE.get('tinyMCEtextarea').setContent(document.getElementById('tinyMCEtextarea').value);

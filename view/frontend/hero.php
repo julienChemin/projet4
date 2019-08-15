@@ -9,9 +9,9 @@
 
 	<div id="citation" class="full_width">
 		<cite>
-			"Bienvenue sur la première de couverture !<br><br>
-			Ici, vous pourrez lire l'avancée de mon épopée en <strong>Alaska</strong> !<br><br>
-			Chaques jours, je publierai un article !"
+			"Bienvenue sur la première de couverture,<br><br>
+			ici, vous pourrez lire l'avancée de mon épopée en <strong>Alaska</strong> !<br><br>
+			Chaques jours, je publierai un article, soyez présent !"
 		</cite>
 	</div>
 </div>

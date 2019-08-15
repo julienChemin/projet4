@@ -103,6 +103,32 @@ input[type="submit"]{
 	cursor: pointer;
 }
 
+/* ------------------------ TABLE ------------------------ */
+table{
+	border-collapse: collapse;
+	border:double 5px #74bbe4;
+	background-color: white;
+}
+th, td{
+	border: solid 1.5px #74bbe4;
+	padding: 15px;
+}
+th{
+	background-color: #004c8c;
+	color: white;
+}
+tr:nth-child(2n + 1){
+	background-color: #f1f2f6;
+}
+th:nth-child(1){
+	width: 70%;
+}
+th:nth-child(2), th:nth-child(3), th:nth-child(4){
+	width: 10%;
+}
+td:nth-child(2), td:nth-child(3), td:nth-child(4){
+	text-align: center;
+}
 /* ------------------------ ERROR ------------------------ */
 #msg{
 	display: flex;
@@ -284,18 +310,27 @@ input[type="submit"]{
 }
 
 /* ------------------------ ADD ARTICLE ------------------------ */
-#add_article form{
+#form_add_edit_article form{
 	text-align: left;
 }
-#add_article input[type='text']{
+#form_add_edit_article input[type='text']{
 	width: 50%;
 }
-#add_article input[type='submit']{
+#form_add_edit_article input[type='submit']{
 	font-size: 1.2em;
 }
-#add_article form > p:last-child{/*input submit*/
+#form_add_edit_article form > p:last-child{/*input submit*/
 	text-align: right;
 }
-#add_article textarea{
+#form_add_edit_article textarea{
 	height: 500px;
+}
+
+/* ------------------------ EDIT ARTICLE ------------------------ */
+#edit_articles{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin-bottom: 150px;
 }

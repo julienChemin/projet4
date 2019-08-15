@@ -20,6 +20,12 @@ function edit(){
 	require('view/backend/edit.php');
 }
 
+function delete(){
+	$ArticlesManager = new ArticlesManager();
+
+	require('view/backend/delete.php');
+}
+
 function moderate(){
 	$CommentsManager = new CommentsManager();
 

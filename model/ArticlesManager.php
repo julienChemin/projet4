@@ -36,9 +36,9 @@ class ArticlesManager extends Database{
 	public function update(Article $Article){
 		$this -> sql(
 			'UPDATE articles 
-			SET author_edit = :author_edit, date_edit = NOW(), content = :content
+			SET author_edit = :author_edit, date_edit = NOW(), content = :content, title = :title
 			WHERE id = :id',
-			[':author_edit' => $Article -> author(), ':title' => $Article -> title(), ':content' => $Article -> content(), ':id' => $Article -> id()]);
+			[':author_edit' => $Article -> author_edit(), ':title' => $Article -> title(), ':content' => $Article -> content(), ':id' => $Article -> id()]);
 	}
 
 	public function delete(int $id){

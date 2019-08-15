@@ -51,6 +51,10 @@ try{
 		else if($_GET['action'] === 'edit'){
 			edit();
 		}
+		//delete article
+		else if($_GET['action'] === 'delete'){
+			delete();
+		}
 		//moderate comments
 		else if($_GET['action'] === 'moderate'){
 			moderate();
