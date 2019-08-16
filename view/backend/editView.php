@@ -6,7 +6,7 @@ if(isset($_SESSION)){
 
 	echo '<h1>Editer un article</h1>';
 
-	if(isset($_POST['edit_article_title']) && isset($_POST['tinyMCEtextarea'])){
+	if(isset($_POST['id_article']) && isset($_POST['edit_article_title']) && isset($_POST['tinyMCEtextarea'])){
 		//edit article
 		$ArticlesManager -> update(new Article([
 			'author_edit' => 'Jean-Forteroche', 
@@ -39,7 +39,7 @@ if(isset($_SESSION)){
 						<textarea id="tinyMCEtextarea" name="tinyMCEtextarea"></textarea>
 					</p>
 					<p>
-						<input type="hidden" name="content" id="content" value="<?=$article['content']?>">
+						<input type="hidden" name="content" id="content" value='<?=$article['content']?>'>
 						<input type="hidden" name="id_article" id="id_article" value="<?=$_GET['id_article']?>">
 						<input type="submit" name="submit" value="Editer">
 					</p>

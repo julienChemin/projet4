@@ -2,21 +2,18 @@
 
 abstract class ReportManager extends Database{
 
-	public function getMostReportedComments(int $nb_reported_comments){
-		if($nb_reported_comments > 0){
-			return $this -> sql('
-				SELECT id, id_article, content, nb_report, author, author_edit, FORMAT_DATE(date_publication, "%d/%m/%Y à %H:%i.%s") AS date_publication, FORMAT_DATE(date_edit, "%d/%m/%Y à %H:%i.%s") AS date_edit
-				FROM comments
-				ORDER BY nb_report DESC
-				LIMIT 0, :nb_reported_comments',
-				[":nb_reported_comments" => $nb_reported_comments]);
-		}
+	public function getMostReportedComments(){
+		return $this -> sql('
+			SELECT id, id_article, content, nb_report, author, author_edit, DATE_FORMAT(date_publication, "%d/%m/%Y à %H:%i.%s") AS date_publication, DATE_FORMAT(date_edit, "%d/%m/%Y à %H:%i.%s") AS date_edit
+			FROM comments
+			WHERE nb_report != 0
+			ORDER BY nb_report DESC');
 	}
 
 	public function getLastReportedComments(int $nb_reported_comments){
 		if($nb_reported_comments > 0){
 			return $this -> sql('
-				SELECT id, id_reported_comment, content, author, FORMAT_DATE(date_report, "%d/%m/%Y à %H:%i.%s") AS date_report
+				SELECT id, id_reported_comment, content, author, DATE_FORMAT(date_report, "%d/%m/%Y à %H:%i.%s") AS date_report
 				FROM report
 				ORDER BY id DESC
 				LIMIT 0, :nb_reported_comments',

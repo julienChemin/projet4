@@ -52,9 +52,9 @@ class CommentsManager extends ReportManager{
 	public function update(Comment $Comment){
 		$this -> sql('
 			UPDATE comments
-			SET content = :content, author_edit = :author_edit, date_edit = NOW()
+			SET content = :content, author_edit = :author_edit, author = :author, date_edit = NOW()
 			WHERE id = :id',
-			[':content' => $Comment -> content(), ':author_edit' => $Comment -> author(), ':id' => $Comment -> id()]);
+			[':content' => $Comment -> content(), ':author_edit' => $Comment -> author_edit(), ':author' => $Comment -> author(), ':id' => $Comment -> id()]);
 	}
 
 	public function delete(int $idCom){

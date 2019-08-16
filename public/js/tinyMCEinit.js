@@ -9,6 +9,8 @@ tinymce.init({
 	paste_data_images: true,
 	image_title: true,
 	images_upload_url: 'view/backend/upload.php',
+    convert_urls:true,
+    remove_script_host:false,
     relative_urls:false,
     images_upload_handler: function (blobInfo, success, failure) {
         var xhr, formData;
@@ -31,7 +33,6 @@ tinymce.init({
                 failure('Invalid JSON: ' + xhr.responseText);
                 return;
             }
-        
             success(json.location);
         };
       
@@ -48,6 +49,3 @@ tinymce.init({
         });
     },
 });
-
-//tinymce.activeEditor.setContent('document.getElementById("tinyMCEtextarea").value');
-//tinyMCE.get('tinyMCEtextarea').setContent(document.getElementById('tinyMCEtextarea').value);

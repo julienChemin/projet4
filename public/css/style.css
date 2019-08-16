@@ -326,11 +326,22 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	height: 500px;
 }
 
-/* ------------------------ EDIT ARTICLE ------------------------ */
-#edit_articles{
+/* ------------------------ EDIT ARTICLE / COMMENT ------------------------ */
+#edit_articles, #moderate_comments{
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
 	margin-bottom: 150px;
+}
+
+/* ------------------------ DELETE ARTICLE / COMMENT ------------------------ */	
+#form_confirmation{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+#form_confirmation input{
+	font-size: 1.3em;
+	margin-top: 50px;
 }

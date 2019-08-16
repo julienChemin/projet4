@@ -57,7 +57,7 @@ ob_start();
 					<a href="Jean-Forteroche.php?action=report&amp;id_comment=<?=$comment['id']?>">Signaler</a>
 				</div>
 				<p class="comment_author"<?=$style?>><?=$comment['author']?></p>
-				<p class="comment_content"><?=$comment['content']?></p>
+				<div class="comment_content"><?=$comment['content']?></div>
 				<p class="comment_date_publication"><?=$comment['date_publication']?></p>
 				<?php
 				if(!empty($comment['date_edit']) && !empty($comment['author_edit'])){

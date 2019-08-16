@@ -3,14 +3,8 @@
 $accepted_origins = array("http://localhost", "https://julienchemin.fr");
 
 $imageFolder = "../../public/images/";
-/*
-"../public/images" = l'image aparait dans tinymce mais le chemin dans le html lors de l'affichage est bugger 
-(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMC ...	
-		</div>
-		<p class=)
+$relative_path = "public/images/";
 
-"../../public/images" = l'image s'enregistre bien dans le dossier mais ne saffiche pas dans tinymce pendant l'ecriture de larticle et ne s'affiche pas non plus lors de laffichage des article (le lien a un "/" de trop ou un "../")
-*/
 
 reset($_FILES);
 $temp = current($_FILES);
@@ -38,9 +32,10 @@ if(is_uploaded_file($temp['tmp_name'])){
     }
 
     $filetowrite = $imageFolder . $temp['name'];
+    $final_path = $relative_path . $temp['name'];
     move_uploaded_file($temp['tmp_name'], $filetowrite);
   
-    echo json_encode(array('location' => $filetowrite));
+    echo json_encode(array('location' => $final_path));
 } else {
     header("HTTP/1.1 500 Server Error");
 }

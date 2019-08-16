@@ -18,7 +18,7 @@ if(isset($_SESSION)){
 	if(isset($_GET['id_article'])){
 		?>
 		<!--form to confirm delete article-->
-		<h3>êtes-vous sûr de vouloir supprimer cet élément ?</h3>
+		<h3>Etes-vous sûr de vouloir supprimer cet élément ?</h3>
 		
 		<section id="form_confirmation" class="container">
 			<form method="POST" action="Jean-Forteroche_admin.php?action=delete">

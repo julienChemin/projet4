@@ -11,23 +11,23 @@ function disconnect(){
 function add(){
 	$ArticlesManager = new ArticlesManager();
 
-	require('view/backend/add.php');
+	require('view/backend/addView.php');
 }
 
 function edit(){
 	$ArticlesManager = new ArticlesManager();
 
-	require('view/backend/edit.php');
+	require('view/backend/editView.php');
 }
 
 function delete(){
 	$ArticlesManager = new ArticlesManager();
 
-	require('view/backend/delete.php');
+	require('view/backend/deleteView.php');
 }
 
 function moderate(){
 	$CommentsManager = new CommentsManager();
 
-	require('view/backend/moderate.php');
+	require('view/backend/moderateView.php');
 }
