@@ -36,5 +36,5 @@ function postComment(){
 function report(){
 	$CommentsManager = new CommentsManager();
 
-	require('view/frontend/report.php');
+	require('view/frontend/reportView.php');
 }

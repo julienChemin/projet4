@@ -2,7 +2,7 @@
 
 session_start();
 
-if(!isset($_SESSION) && isset($_COOKIE['admin'])){
+if(!isset($_SESSION['pseudo']) && isset($_COOKIE['admin'])){
 	$_SESSION['pseudo'] = $_COOKIE['admin'];
 }
 
@@ -22,7 +22,7 @@ try{
 		if($_GET['action'] === 'listArticles'){
 			listArticles();
 		}
-		//one article
+		//display one article
 		else if($_GET['action'] === 'article' && isset($_GET['id_article'])){
 			$_GET['id_article'] = (int) $_GET['id_article'];
 			if($_GET['id_article'] > 0){
@@ -58,6 +58,10 @@ try{
 		//moderate comments
 		else if($_GET['action'] === 'moderate'){
 			moderate();
+		}
+		//moderate reports
+		else if($_GET['action'] === 'viewReports'){
+			viewReports();
 		}
 		//"action" value is unknow
 		else{

@@ -2,7 +2,7 @@
 
 ob_start();
 
-if(isset($_SESSION)){
+if(isset($_SESSION['pseudo'])){
 
 	echo '<h1>Editer un article</h1>';
 
@@ -39,11 +39,11 @@ if(isset($_SESSION)){
 						<textarea id="tinyMCEtextarea" name="tinyMCEtextarea"></textarea>
 					</p>
 					<p>
-						<input type="hidden" name="content" id="content" value='<?=$article['content']?>'>
 						<input type="hidden" name="id_article" id="id_article" value="<?=$_GET['id_article']?>">
 						<input type="submit" name="submit" value="Editer">
 					</p>
 				</form>
+				<div id="content"><?=$article['content']?></div>
 			</section>
 			<?php
 

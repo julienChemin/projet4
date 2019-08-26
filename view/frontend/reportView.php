@@ -7,7 +7,7 @@ $Comment = $CommentsManager -> getComment($_GET['id_comment']);
 if($comment = $Comment -> fetch()){
 	if(isset($_POST['post_report_pseudo']) && isset($_POST['post_report_content'])){
 		//post report
-		$CommentsManager -> report($_GET['id_comment'], htmlspecialchars($_POST['post_report_pseudo']), htmlspecialchars($_POST['post_report_content']), $comment['nb_report']);
+		$CommentsManager -> setReport($_GET['id_comment'], htmlspecialchars($_POST['post_report_pseudo']), htmlspecialchars($_POST['post_report_content']), $comment['nb_report']);
 
 		?>
 		<section id="msg" class="container">
@@ -37,10 +37,15 @@ if($comment = $Comment -> fetch()){
 		<?php
 
 		//display comment to report
+		//if comment's author is admin, display name in purple
+			$style ="";
+			if($comment['author_is_admin']){
+				$style = 'style="color:purple;"';
+			}
 		?>
 		<section id="comments" class="container">
 			<div class="comment">
-				<p class="comment_author"><?=$comment['author']?></p>
+				<p class="comment_author"<?=$style?>><?=$comment['author']?></p>
 				<p class="comment_content"><?=$comment['content']?></p>
 				<p class="comment_date_publication"><?=$comment['date_publication']?></p>
 				<?php

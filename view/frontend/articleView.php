@@ -54,7 +54,15 @@ ob_start();
 			?>
 			<div class="comment">
 				<div class="info">
-					<a href="Jean-Forteroche.php?action=report&amp;id_comment=<?=$comment['id']?>">Signaler</a>
+					<?php
+					//display link "moderate" for admin or "report" for users
+					if(isset($_SESSION['pseudo'])){
+						echo '<a href="Jean-Forteroche_admin.php?action=moderate&id_comment=' . $comment['id'] . '">Modérer</a>';
+					}
+					else{
+						echo '<a href="Jean-Forteroche.php?action=report&amp;id_comment=' . $comment['id'] . '">Signaler</a>';
+					}
+					?>
 				</div>
 				<p class="comment_author"<?=$style?>><?=$comment['author']?></p>
 				<div class="comment_content"><?=$comment['content']?></div>

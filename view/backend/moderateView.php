@@ -2,7 +2,7 @@
 
 ob_start();
 
-if(isset($_SESSION)){
+if(isset($_SESSION['pseudo'])){
 
 	echo '<h1>Modérer les commentaires</h1>';
 
@@ -14,7 +14,8 @@ if(isset($_SESSION)){
 			'content' => $_POST['tinyMCEtextarea'],
 			'id' => $_POST['id_comment']]));
 
-		$CommentsManager -> resetNbReport($_POST['id_comment']);
+		$CommentsManager -> deleteReportsFromComment($_POST['id_comment']);
+		$CommentsManager -> setNbReport($_POST['id_comment'], 0);
 
 			$message = 'Le commentaire a bien été édité.';
 	}
@@ -61,7 +62,10 @@ if(isset($_SESSION)){
 
 		?>
 		<section class="container" id="moderate_comments">
-			<table class="full_width">
+			<?php
+			if($comment = $Comments -> fetch()){
+				?>
+				<table class="full_width">
 				<caption><h2>Liste des Commentaires signalé</h2></caption>
 				<tr>
 					<th>Commentaire</th>
@@ -69,27 +73,35 @@ if(isset($_SESSION)){
 					<th>Editer</th>
 					<th>Supprimer</th>
 				</tr>
-			
 				<?php
-				while($Comment = $Comments -> fetch()){
+				do{
+					//if comment's author is admin, display name in purple
+					$style ="";
+					if($comment['author_is_admin']){
+						$style = 'style="color:purple;"';
+					}
 					?>
 					<tr>
 						<td>
-							Auteur : <?=$Comment['author']?> <br><br>
-							Contenu : <?=$Comment['content']?> <br><br>
-							<span>Nombre de signalement : <?=$Comment['nb_report']?></span>
+							Auteur : <span <?=$style?>> <?=$comment['author']?></span> <br><br>
+							Contenu : <span> <?=$comment['content']?></span> <br><br>
+							Nombre de signalement : <span> <?=$comment['nb_report']?></span> - 
+							<a href="Jean-Forteroche_admin.php?action=viewReports&amp;id_comment=<?=$comment['id']?>">Voir les signalement</a>
 						</td>
-						<td><a href="Jean-Forteroche.php?action=article&amp;id_article=<?=$Comment['id_article']?>"><i class="fas fa-eye"></i></a></td>
-						<td><a href="Jean-Forteroche_admin.php?action=moderate&amp;id_comment=<?=$Comment['id']?>"><i class="fas fa-pencil-alt"></i></a></td>
-						<td><a href="Jean-Forteroche_admin.php?action=delete&amp;id_comment=<?=$Comment['id']?>"><i class="fas fa-trash-alt"></i></a></td>
+						<td><a href="Jean-Forteroche.php?action=article&amp;id_article=<?=$comment['id_article']?>"><i class="fas fa-eye"></i></a></td>
+						<td><a href="Jean-Forteroche_admin.php?action=moderate&amp;id_comment=<?=$comment['id']?>"><i class="fas fa-pencil-alt"></i></a></td>
+						<td><a href="Jean-Forteroche_admin.php?action=delete&amp;id_comment=<?=$comment['id']?>"><i class="fas fa-trash-alt"></i></a></td>
 					</tr>
 					<?php
-				}
-				?>
+				}while($comment = $Comments -> fetch());
 
-			</table>
-		</section>
-		<?php
+				echo '</table>';
+			}
+			else{
+				echo '<p class="infoComment">Il n\'y a aucun commentaire à afficher.</p>';
+			}
+
+			echo '</section>';
 
 		$Comments -> closeCursor();
 	}

@@ -35,16 +35,22 @@ tinymce.init({
             }
             success(json.location);
         };
-      
+        
         formData = new FormData();
-        formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+        if(typeof(blobInfo.blob().name) !== undefined)
+            fileName = blobInfo.blob().name;
+        else
+            fileName = blobInfo.filename();
+        
+        formData.append('file', blobInfo.blob(), fileName);
       
         xhr.send(formData);
     },
     setup: editor => {
         editor.on('init', () => {
             if(document.getElementById("content")){
-                tinymce.activeEditor.setContent(document.getElementById("content").value);
+                tinymce.activeEditor.setContent(document.getElementById("content").innerHTML);
             }
         });
     },

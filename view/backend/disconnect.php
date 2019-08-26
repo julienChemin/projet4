@@ -5,7 +5,7 @@ if(isset($_SESSION)){
 }
 
 if(isset($_COOKIE['admin'])){
-	setcookie('admin', '', time()+1, null, null, false, true);
+	setcookie('admin', '', time()-3600, null, null, false, true);
 }
 
 header('Location: Jean-Forteroche_admin.php');

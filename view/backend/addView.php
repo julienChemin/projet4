@@ -2,7 +2,7 @@
 
 ob_start();
 
-if(isset($_SESSION)){
+if(isset($_SESSION['pseudo'])){
 	
 	echo '<h1>Ajouter un article</h1>';
 

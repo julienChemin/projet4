@@ -218,6 +218,9 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	justify-content: flex-start;
 	align-items: center;
 }
+#articles img{
+	width: 100%;
+}
 .article{
 	width: 90%;
 
@@ -245,8 +248,15 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 }
 
 /* ------------------------ COMMENTS ------------------------ */
+#comments{
+	display: flex;
+	flex-direction: column;
+}
+#comments > div:nth-of-type(2n+2){
+	align-self: flex-end;
+}
 .comment{
-	width: 90%;
+	width: 80%;
 	
 	background-color: white;
 	border:double 5px #74bbe4;
@@ -255,6 +265,8 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	margin: 25px 0;
 	padding: 0 10px;
 	box-shadow: #2682c4 5px 5px 5px;
+
+	align-content: right;
 }
 .comment_author{
 	font-weight: bold;
@@ -272,9 +284,7 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	text-align: right;
 }
 
-/* -----------------------------------------------------------------  ------------------------------------------------------- */
 /* --------------------------------------------------------------- ADMIN ---------------------------------------------------- */
-/* -----------------------------------------------------------------  ------------------------------------------------------- */
 
 /* ------------------------ HOME ------------------------ */
 #accueil_admin{
@@ -325,9 +335,12 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 #form_add_edit_article textarea{
 	height: 500px;
 }
+#form_add_edit_article #content{
+	display: none;
+}
 
-/* ------------------------ EDIT ARTICLE / COMMENT ------------------------ */
-#edit_articles, #moderate_comments{
+/* ------------------------ EDIT ARTICLE / COMMENT / REPORT ------------------------ */
+#edit_articles, #moderate_comments, #moderate_report{
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -344,4 +357,12 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 #form_confirmation input{
 	font-size: 1.3em;
 	margin-top: 50px;
+}
+
+/*====================================================================================================================================
+															medium desktops laptops
+====================================================================================================================================*/
+
+@media all and (min-width:992px) and (max-width:1200px){
+	
 }

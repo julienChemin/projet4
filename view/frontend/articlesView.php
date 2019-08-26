@@ -16,8 +16,8 @@ while($article = $ListArticles -> fetch()){
 		<h2><?=$article['title']?></h2>
 		<div class="article_content">
 			<?php
-			if(strlen($article['content']) > 150){
-				for($i =0; $i<150; $i++){
+			if(strlen($article['content']) > 500){
+				for($i =0; $i<500; $i++){
 					echo $article['content'][$i];
 				}
 				echo " ...";

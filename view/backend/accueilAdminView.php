@@ -70,7 +70,7 @@ else{
 		</p>
 		<p>
 			<label for="stayConnect">Rester connecté</label>
-			<input type="checkbox" name="stayConnect" value="true">
+			<input type="checkbox" name="stayConnect" id="stayConnect">
 		</p>
 		<p>
 			<input type="submit" name="submit" value="connection" required="">
