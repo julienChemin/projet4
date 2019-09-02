@@ -3,11 +3,13 @@
 ob_start();
 
 ?>
-<section id="msg">
+
+<section id="msg" class="container">
 	<h1>Une erreur est survenue : </h1>
 	<br>
 	<span><?=$message?></span>	
 </section>
+
 <?php
 
 $content = ob_get_clean();

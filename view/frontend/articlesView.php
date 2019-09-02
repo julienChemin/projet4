@@ -1,48 +1,58 @@
 <?php
 
-$ListArticles = $ArticlesManager -> getArticles();
-
 ob_start();
 
 ?>
-<!--display article-->
-<h1>Tout les articles</h1>
-<section id="articles" class="container">
 
-<?php
-while($article = $ListArticles -> fetch()){
-	?>
-	<div class="article">
-		<h2><?=$article['title']?></h2>
-		<div class="article_content">
-			<?php
-			if(strlen($article['content']) > 500){
-				for($i =0; $i<500; $i++){
-					echo $article['content'][$i];
-				}
-				echo " ...";
-			}
-			else{
-				echo $article['content'];
-			}
-			?>	
-		</div>
-		<p class="article_author"><?=$article['author']?></p>
-		<p class="article_date_publication">Le <?=$article['date_publication']?></p>
-		<?php
-		if(!empty($article['date_edit'])){
-			echo '<p class="article_date_edit"> Edité le ' . $article['date_edit'] . '</p>';
-		}
-		?>
-		<p class="link_comment"><a href="Jean-Forteroche.php?action=article&amp;id_article=<?=$article['id']?>">Lire l'article</a></p>
-	</div>
+<h1>Tout les articles</h1>
+
+<article id="articles" class="container">
 	<?php
-}
-?>
-</section>
-<?php
+	if (!empty($listArticles)) {
+		foreach ($listArticles as $article) {
+			//display articles
+			?>
+			<section class="article">
+				<h2><?=$article['title']?></h2>
+
+				<div class="articleContent">
+					<?php
+					if (strlen($article['content']) > 500) {
+						for ($i =0; $i<500; $i++) {
+							echo $article['content'][$i];
+						}
+						echo " ...";
+					} else {
+						echo $article['content'];
+					}
+					?>	
+				</div>
+
+				<p class="articleAuthor">
+					<?=$article['author']?>
+				</p>
+
+				<p class="articleDatePublication">
+					Le <?=$article['datePublication']?>
+				</p>
+
+				<?php
+				if (!empty($article['dateEdit'])) {
+					echo '<p class="articleDateEdit"> Edité le ' . $article['dateEdit'] . '</p>';
+				}
+				?>
+
+				<p class="linkComment">
+					<a href="Jean-Forteroche.php?action=article&amp;idArticle=<?=$article['id']?>">Lire l'article</a>
+				</p>
+			</section>
+			<?php
+		}
+	} else {
+		echo '<p class="infoComment">Il n\'y a aucun article a afficher pour l\'instant.</p>';
+	}
+echo '</article>';
 
 $content = ob_get_clean();
-$ListArticles -> closeCursor();
 
 require('view/template.php');

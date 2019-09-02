@@ -1,101 +1,108 @@
 <?php
 
-abstract class ReportManager extends Database{
-
-	public function getMostReportedComments(){
-		return $this -> sql('
-			SELECT id, id_article, content, nb_report, author, author_is_admin, author_edit, DATE_FORMAT(date_publication, "%d/%m/%Y à %H:%i.%s") AS date_publication, DATE_FORMAT(date_edit, "%d/%m/%Y à %H:%i.%s") AS date_edit
+abstract class ReportManager extends Database
+{
+	public function getMostReportedComments()
+	{
+		return $this->sql('
+			SELECT id, idArticle, content, nbReport, author, authorIsAdmin, authorEdit, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit
 			FROM comments
-			WHERE nb_report != 0
-			ORDER BY nb_report DESC');
+			WHERE nbReport != 0
+			ORDER BY nbReport DESC');
 	}
 
-	public function setReport(int $idComment, string $author, string $content, int $nb_report_before){
-		if($idComment > 0 && $nb_report_before >= 0 && strlen($author) > 0 && strlen($content) > 0){
-			//add 1 to Comment's nb_report
-			$nb_report = $nb_report_before + 1;
-			$this -> setNbReport($idComment, $nb_report);
+	public function setReport(int $idComment, string $author, string $content, int $nbReportBefore)
+	{
+		if ($idComment > 0 && $nbReportBefore >= 0 && strlen($author) > 0 && strlen($content) > 0) {
+			//add 1 to Comment's nbReport
+			$nbReport = $nbReportBefore + 1;
+			$this->setNbReport($idComment, $nbReport);
 
 			//add report to "report" table
-			$this -> sql('
-				INSERT INTO report (id_reported_comment, author, content, date_report)
-				VALUES (:id_reported_comment, :author, :content, NOW())',
-				[':id_reported_comment' => $idComment, ':author' => $author, ':content' => $content]);
+			$this->sql('
+				INSERT INTO report (idReportedComment, author, content, dateReport)
+				VALUES (:idReportedComment, :author, :content, NOW())',
+				[':idReportedComment' => $idComment, ':author' => $author, ':content' => $content]);
 		}
 	}
 
-	public function deleteReport(int $idReport, int $idComment){
-		if($idReport > 0 && $idComment > 0){
-			if($this -> reportExists($idReport)){
+	public function deleteReport(int $idReport, int $idComment)
+	{
+		if ($idReport > 0 && $idComment > 0) {
+			if ($this->reportExists($idReport)) {
 				//delete report
-				$this -> sql('
+				$this->sql('
 					DELETE FROM report
 					WHERE id = :id',
 					[':id' => $idReport]);
 
-				//minus 1 to Comment's nb_report
-				$req = $this -> getNbReport($idComment) -> fetch();
-				$nb_report_before = (int) $req['nb_report'];
-				$nb_report = $nb_report_before - 1;
+				//minus 1 to Comment's nbReport
+				$req = $this->getNbReport($idComment)->fetch();
+				$nbReportBefore = (int) $req['nbReport'];
+				$nbReport = $nbReportBefore - 1;
 
-				$this -> setNbReport($idComment, $nb_report);
+				$this->setNbReport($idComment, $nbReport);
 			}
 		}
 	}
 
-	public function reportExists(int $idReport){
-		if($idReport > 0){
-			$req = $this -> sql('
+	public function reportExists(int $idReport)
+	{
+		if ($idReport > 0) {
+			$req = $this->sql('
 				SELECT *
 				FROM report
 				WHERE id = :id',
 				[':id' => $idReport]);
 
-			if($report = $req -> fetch()){
+			if ($report = $req->fetch()) {
 				return true;
-			}
-			else{
+			} else {
 				return false;
 			}
 		}
 	}
 
-	public function getNbReport(int $idComment){
-		if($idComment > 0){
-			return $this -> sql('
-				SELECT nb_report 
+	public function getNbReport(int $idComment)
+	{
+		if ($idComment > 0) {
+			return $this->sql('
+				SELECT nbReport 
 				FROM comments
 				WHERE id = :idComment',
 				[':idComment' => $idComment]);
 		}
 	}
 
-	public function setNbReport(int $idComment, int $nb_report){
-		if($idComment > 0 && $nb_report >= 0){
-			$this -> sql('
+	public function setNbReport(int $idComment, int $nbReport)
+	{
+		if ($idComment > 0 && $nbReport >= 0) {
+			$this->sql('
 				UPDATE comments 
-				SET nb_report = :nb_report
+				SET nbReport = :nbReport
 				WHERE id = :idComment',
-				[':idComment' => $idComment, ':nb_report' => $nb_report]);
+				[':idComment' => $idComment, ':nbReport' => $nbReport]);
 		}
 	}
 
-	public function getReportsFromComment(int $idComment){
-		if($idComment > 0){
-			return $this -> sql('
-				SELECT id, id_reported_comment, author, content, DATE_FORMAT(date_report, "%d/%m/%Y à %H:%i.%s") AS date_report
+	public function getReportsFromComment(int $idComment)
+	{
+		if ($idComment > 0) {
+			return $this->sql('
+				SELECT id, idReportedComment, author, content, DATE_FORMAT(dateReport, "%d/%m/%Y à %H:%i.%s") AS dateReport
 				FROM report
-				WHERE id_reported_comment = :id_reported_comment',
-				[':id_reported_comment' => $idComment]);
+				WHERE idReportedComment = :idReportedComment',
+				[':idReportedComment' => $idComment]);
 		}
 	}
 
-	public function deleteReportsFromComment(int $idComment){
-		if($idComment > 0){
-			$this -> sql('
+	public function deleteReportsFromComment(int $idComment)
+	{
+		if ($idComment > 0) {
+			$this->sql('
 				DELETE FROM report
-				WHERE id_reported_comment = :id_reported_comment',
-				[':id_reported_comment' => $idComment]);
+				WHERE idReportedComment = :idReportedComment',
+				[':idReportedComment' => $idComment]);
 		}
 	}
 }

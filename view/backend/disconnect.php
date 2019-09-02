@@ -1,10 +1,10 @@
 <?php
 
-if(isset($_SESSION)){
+if (isset($_SESSION)) {
 	session_destroy();
 }
 
-if(isset($_COOKIE['admin'])){
+if (isset($_COOKIE['admin'])) {
 	setcookie('admin', '', time()-3600, null, null, false, true);
 }
 

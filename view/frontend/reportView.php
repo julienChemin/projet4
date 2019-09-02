@@ -2,68 +2,74 @@
 
 ob_start();
 
-$Comment = $CommentsManager -> getComment($_GET['id_comment']);
+if (isset($_POST['postReportPseudo']) && isset($_POST['postReportContent'])) {
+	//post report
+	?>
 
-if($comment = $Comment -> fetch()){
-	if(isset($_POST['post_report_pseudo']) && isset($_POST['post_report_content'])){
-		//post report
-		$CommentsManager -> setReport($_GET['id_comment'], htmlspecialchars($_POST['post_report_pseudo']), htmlspecialchars($_POST['post_report_content']), $comment['nb_report']);
+	<section id="msg" class="container">
+		<span>Le commentaire a été signalé.</span>
+		<br>
+		<a href="Jean-Forteroche.php?action=listArticles">Retourner sur la liste des articles</a>
+	</section>
 
-		?>
-		<section id="msg" class="container">
-			<span>Le commentaire a été signalé.</span>
-			<br>
-			<a href="Jean-Forteroche.php?action=listArticles">Retourner sur la liste des articles</a>
-		</section>
-		<?php
-	}
-	else{
-		//display form to post report
-		?>
-		<h1>Signaler un commentaire</h1>
-		<form method="POST" action="Jean-Forteroche.php?action=report&amp;id_comment=<?=$_GET['id_comment']?>">
-			<h2>Merci d'indiquer la raison pour laquelle vous signalez ce commentaire</h2>
-			<p>
-				<label for="post_report_pseudo">Pseudo</label>
-				<input type="text" name="post_report_pseudo" id="post_report_pseudo" placeholder="Votre pseudo" required="">
-			</p>
-			<p>
-				<textarea name="post_report_content" id="post_report_content" placeholder="Votre commentaire" required=""></textarea>
-			</p>
-			<p>
-				<input type="submit" name="sumbit" id="submit" value="Signaler">
-			</p>
-		</form>
-		<?php
+	<?php
+} else {
+	//display form to post report
+	?>
 
-		//display comment to report
-		//if comment's author is admin, display name in purple
-			$style ="";
-			if($comment['author_is_admin']){
-				$style = 'style="color:purple;"';
+	<h1>Signaler un commentaire</h1>
+
+	<form method="POST" action="Jean-Forteroche.php?action=report&amp;idComment=<?=$_GET['idComment']?>">
+		<h2>Merci d'indiquer la raison pour laquelle vous signalez ce commentaire</h2>
+
+		<p>
+			<label for="postReportPseudo">Pseudo</label>
+			<input type="text" name="postReportPseudo" id="postReportPseudo" placeholder="Votre pseudo" required="">
+		</p>
+
+		<p>
+			<textarea name="postReportContent" id="postReportContent" placeholder="Votre commentaire" required=""></textarea>
+		</p>
+
+		<p>
+			<input type="submit" name="submit" id="submit" value="Signaler">
+		</p>
+	</form>
+
+	<?php
+	//display comment to report
+	//if comment's author is admin, display name in purple
+		$style ="";
+		if ($comment['authorIsAdmin']) {
+			$style = 'style="color:purple;"';
+		}
+	?>
+
+	<section id="comments" class="container">
+		<div class="comment">
+			<p class="commentAuthor"<?=$style?>>
+				<?=$comment['author']?>
+			</p>
+
+			<p class="commentContent">
+				<?=$comment['content']?>
+			</p>
+
+			<p class="commentDatePublication">
+				<?=$comment['datePublication']?>
+			</p>
+
+			<?php
+			if (!empty($comment['dateEdit']) && !empty($comment['authorEdit'])) {
+				echo '<p class="commentEdit"> Edité le ' . $comment['dateEdit'] . ' par ' . $comment['authorEdit'] . '</p>';
 			}
-		?>
-		<section id="comments" class="container">
-			<div class="comment">
-				<p class="comment_author"<?=$style?>><?=$comment['author']?></p>
-				<p class="comment_content"><?=$comment['content']?></p>
-				<p class="comment_date_publication"><?=$comment['date_publication']?></p>
-				<?php
-				if(!empty($comment['date_edit']) && !empty($comment['author_edit'])){
-					echo '<p class="comment_edit"> Edité le ' . $comment['date_edit'] . ' par ' . $comment['author_edit'] . '</p>';
-				}
-				?>
-			</div>
-		</section>
-		<?php
-	}
-}
-else{
-	throw new Exception('Le commentaire recherché n\'existe pas.');
+			?>
+		</div>
+	</section>
+	
+	<?php
 }
 
 $content = ob_get_clean();
-
-$Comment -> closeCursor();
 
 require('view/template.php');

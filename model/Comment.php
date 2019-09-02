@@ -1,118 +1,138 @@
 <?php
 
-class Comment{
+class Comment
+{
+	private $id,
+			$idArticle,
+			$content,
+			$author,
+			$authorIsAdmin,
+			$datePublication,
+			$authorEdit,
+			$dateEdit,
+			$nbReport;
 
-	private $_id,
-			$_id_article,
-			$_content,
-			$_author,
-			$_author_is_admin,
-			$_date_publication,
-			$_author_edit,
-			$_date_edit,
-			$_nb_report;
-
-	public function __construct(array $data){
-		$this -> hydrate($data);
+	public function __construct(array $data)
+	{
+		$this->hydrate($data);
 	}
 
-	public function hydrate(array $data){
-		foreach($data as $key => $value){
+	public function hydrate(array $data)
+	{
+		foreach ($data as $key => $value){
 			$method = 'set' . ucfirst($key);
 
-			if(method_exists($this, $method)){
-				$this -> $method($value);
+			if (method_exists($this, $method)){
+				$this->$method($value);
 			}
 		}
 	}
 
 	//GETTERS
-	public function id(){
-		return $this -> _id;
+	public function getId()
+	{
+		return $this->id;
 	}
 
-	public function id_article(){
-		return $this -> _id_article;
+	public function getIdArticle()
+	{
+		return $this->idArticle;
 	}
 
-	public function content(){
-		return $this -> _content;
+	public function getContent()
+	{
+		return $this->content;
 	}
 
-	public function author(){
-		return $this -> _author;
+	public function getAuthor()
+	{
+		return $this->author;
 	}
 
-	public function author_is_admin(){
-		return $this -> _author_is_admin;
+	public function getAuthorIsAdmin()
+	{
+		return $this->authorIsAdmin;
 	}
 
-	public function date_publication(){
-		return $this -> _date_publication;
+	public function getDatePublication()
+	{
+		return $this->datePublication;
 	}
 
-	public function author_edit(){
-		return $this -> _author_edit;
+	public function getAuthorEdit()
+	{
+		return $this->authorEdit;
 	}
 
-	public function date_edit(){
-		return $this -> _date_edit;
+	public function getDateEdit()
+	{
+		return $this->dateEdit;
 	}
 
-	public function nb_report(){
-		return $this -> _nb_report;
+	public function getNbReport()
+	{
+		return $this->nbReport;
 	}
 
 	//SETTERS
-	public function setId(int $idCom){
-		if($idCom > 0){
-			$this -> _id = $idCom;
+	public function setId(int $idComment)
+	{
+		if ($idComment > 0) {
+			$this->id = $idComment;
 		}
 	}
 
-	public function setId_article(int $idArt){
-		if($idArt > 0){
-			$this -> _id_article = $idArt;
+	public function setIdArticle(int $idArticle)
+	{
+		if ($idArticle > 0) {
+			$this->idArticle = $idArticle;
 		}
 	}
 
-	public function setContent(string $content){
-		if(strlen($content) > 0){
-			$this -> _content = $content;
+	public function setContent(string $content)
+	{
+		if (strlen($content) > 0) {
+			$this->content = $content;
 		}
 	}
 
-	public function setAuthor(string $author){
-		if(strlen($author) > 0){
-			$this -> _author = $author;
+	public function setAuthor(string $author)
+	{
+		if (strlen($author) > 0) {
+			$this->author = $author;
 		}
 	}
 
-	public function setAuthor_is_admin(bool $is_admin){
-		$this -> _author_is_admin = $is_admin;
+	public function setAuthorIsAdmin(bool $isAdmin)
+	{
+		$this->authorIsAdmin = $isAdmin;
 	}
 
-	public function setDate_publication($date){
-		if(!empty($date)){
-			$this -> _date_publication = $date;
+	public function setDatePublication($date)
+	{
+		if (!empty($date)) {
+			$this->datePublication = $date;
 		}
 	}
 
-	public function setAuthor_edit(string $author_edit){
-		if(strlen($author_edit) > 0){
-			$this -> _author_edit = $author_edit;
+	public function setAuthorEdit(string $authorEdit)
+	{
+		if (strlen($authorEdit) > 0) {
+			$this->authorEdit = $authorEdit;
 		}
 	}
 
-	public function setDate_edit($date_edit){
-		if(!empty($date_edit)){
-			$this -> _date_edit = $date_edit;
+	public function setDateEdit($dateEdit)
+	{
+		if (!empty($dateEdit)) {
+			$this->dateEdit = $dateEdit;
 		}
 	}
 
-	public function setNb_report(int $nb_report){
-		if($nb_report >= 0){
-			$this -> _nb_report = $nb_report;
+	public function setNbReport(int $nbReport)
+	{
+		if ($nbReport >= 0) {
+			$this->nbReport = $nbReport;
 		}
 	}
 }

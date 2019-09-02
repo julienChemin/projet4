@@ -2,67 +2,63 @@
 
 ob_start();
 
-if(isset($_SESSION['pseudo'])){
-	if(isset($_GET['id_comment'])){
+if (isset($_SESSION['pseudo'])) {
+	if (isset($_GET['idComment'])) {
 
 		echo '<h1>Voir les signalements</h1>';
 
-		if(isset($_GET['id_report'])){
-			if($_GET['id_report'] > 0){
+		if (isset($_GET['idReport'])) {
+			if ($_GET['idReport'] > 0) {
 				//delete report
-				$CommentsManager -> deleteReport($_GET['id_report'], $_GET['id_comment']);
-			}
-			else{
+				$CommentsManager->deleteReport($_GET['idReport'], $_GET['idComment']);
+			} else {
 				throw new Exception('Le signalement spécifié est introuvable');
 			}
 		}
 		
 		//display list of report
-		$Reports = $CommentsManager -> getReportsFromComment($_GET['id_comment']);
+		$Reports = $CommentsManager->getReportsFromComment($_GET['idComment']);
 
 		?>
-		<section class="container" id="moderate_report">
+		<section class="container" id="moderateReport">
 			<?php
-			if($report = $Reports -> fetch()){
+			if ($report = $Reports->fetch()) {
 				?>
-				<table class="full_width">
-				<caption><h2>Liste des signalements</h2></caption>
-				<tr>
-					<th>Signalement</th>
-					<th>Supprimer</th>
-				</tr>
-				<?php
-				do{
-					?>
+				<table class="fullWidth">
+					<caption><h2>Liste des signalements</h2></caption>
 					<tr>
-						<td>
-							Auteur : <span><?=$report['author']?></span> <br><br>
-							Contenu : <span> <?=$report['content']?></span>
-						</td>
-						<td>
-							<a href="Jean-Forteroche_admin.php?action=viewReports&amp;id_comment=<?=$_GET['id_comment']?>&amp;id_report=<?=$report['id']?>">
-								<i class="fas fa-trash-alt"></i>
-							</a>
-						</td>
+						<th>Signalement</th>
+						<th>Supprimer</th>
 					</tr>
 					<?php
-				}while($report = $Reports -> fetch());
-
+					do {
+						?>
+						<tr>
+							<td>
+								Auteur : <span><?=$report['author']?></span>
+								<br>
+								<br>
+								Contenu : <span> <?=$report['content']?></span>
+							</td>
+							<td>
+								<a href="Jean-Forteroche_admin.php?action=viewReports&amp;idComment=<?=$_GET['idComment']?>&amp;idReport=<?=$report['id']?>">
+									<i class="fas fa-trash-alt"></i>
+								</a>
+							</td>
+						</tr>
+						<?php
+					} while ($report = $Reports->fetch());
 				echo '</table>';
-			}
-			else{
+			} else {
 				echo '<p class="infoComment">Il n\'y a aucun signalement à afficher.</p>';
 			}
-
 			echo '</section>';
 
-		$Reports -> closeCursor();
-	}
-	else{
+		$Reports->closeCursor();
+	} else {
 		throw new Exception('Le commentaire spécifié est introuvable');
 	}
-}
-else{
+} else {
 	header('Location: Jean-Forteroche_admin.php');
 }
 

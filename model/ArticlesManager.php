@@ -1,47 +1,54 @@
 <?php
 
-class ArticlesManager extends Database{
-	public function getArticles(){
+class ArticlesManager extends Database
+{
+	public function getArticles()
+	{
 		return $this -> sql(
-			'SELECT id, author, author_edit, title, content, DATE_FORMAT(date_publication, "%d/%m/%Y à %H:%i.%s") AS date_publication, DATE_FORMAT(date_edit, "%d/%m/%Y à %H:%i.%s") AS date_edit 
+			'SELECT id, author, authorEdit, title, content, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit 
 			FROM articles
 			ORDER BY id DESC');
 	}
 
-	public function getArticle(int $id){
+	public function getArticle(int $id)
+	{
 		if($id > 0){
 			return $this -> sql(
-				'SELECT id, author, author_edit, title, content, DATE_FORMAT(date_publication, "%d/%m/%Y à %H:%i.%s") AS date_publication, DATE_FORMAT(date_edit, "%d/%m/%Y à %H:%i.%s") AS date_edit 
+				'SELECT id, author, authorEdit, title, content, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit 
 				FROM articles 
 				WHERE id = :id', 
 				[':id' => $id]);
 		}
 	}
 
-	public function getLastArticle(){
+	public function getLastArticle()
+	{
 		return $this -> sql(
-			'SELECT id, author, author_edit, title, content, DATE_FORMAT(date_publication, "%d/%m/%Y à %H:%i.%s") AS date_publication, DATE_FORMAT(date_edit, "%d/%m/%Y à %H:%i.%s") AS date_edit 
+			'SELECT id, author, authorEdit, title, content, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit 
 			FROM articles
 			ORDER BY id DESC
 			LIMIT 0, 1');
 	}
 
-	public function set(Article $Article){
+	public function set(Article $Article)
+	{
 		$this -> sql(
-			'INSERT INTO articles (author, title, content, date_publication) 
+			'INSERT INTO articles (author, title, content, datePublication) 
 			VALUES(:author, :title, :content, NOW())',
-			[':author' => $Article -> author(), ':title' => $Article -> title(), ':content' => $Article -> content()]);
+			[':author' => $Article -> getAuthor(), ':title' => $Article -> getTitle(), ':content' => $Article -> getContent()]);
 	}
 
-	public function update(Article $Article){
+	public function update(Article $Article)
+	{
 		$this -> sql(
 			'UPDATE articles 
-			SET author_edit = :author_edit, date_edit = NOW(), content = :content, title = :title
+			SET authorEdit = :authorEdit, dateEdit = NOW(), content = :content, title = :title
 			WHERE id = :id',
-			[':author_edit' => $Article -> author_edit(), ':title' => $Article -> title(), ':content' => $Article -> content(), ':id' => $Article -> id()]);
+			[':authorEdit' => $Article -> getAuthorEdit(), ':title' => $Article -> getTitle(), ':content' => $Article -> getContent(), ':id' => $Article -> getId()]);
 	}
 
-	public function delete(int $id){
+	public function delete(int $id)
+	{
 		if($id > 0){
 			$this -> sql(
 				'DELETE FROM articles

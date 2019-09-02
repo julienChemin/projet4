@@ -2,11 +2,12 @@
 
 session_start();
 
-if(!isset($_SESSION['pseudo']) && isset($_COOKIE['admin'])){
+if (!isset($_SESSION['pseudo']) && isset($_COOKIE['admin'])) {
 	$_SESSION['pseudo'] = $_COOKIE['admin'];
 }
 
-function chargerClass($class){
+function chargerClass($class)
+{
 	require 'model/' . $class . '.php';
 }
 spl_autoload_register('chargerClass');
@@ -16,63 +17,61 @@ require('controller/backend.php');
 
 /*---------------------------------*/
 
-try{
-	if(isset($_SESSION['pseudo']) && isset($_GET['action'])){
-		//list all articles
-		if($_GET['action'] === 'listArticles'){
-			listArticles();
+try {
+	if (isset($_SESSION['pseudo']) && isset($_GET['action'])) {
+		switch ($_GET['action']) {
+			case 'listArticles' :
+				//list all articles
+				listArticles();
+				break;
+			case 'article' :
+				//display one article
+				//$_GET['id_article'] = (int) $_GET['id_article']; //////////////////
+				if (isset($_GET['idArticle']) && $_GET['idArticle'] > 0) {
+					article();
+				} else {
+					throw new Exception('L\'article est introuvable.');
+				}
+				break;
+			case 'postComment' :
+				//post a comment
+				if (isset($_POST['postCommentPseudo']) && isset($_POST['postCommentContent'])) {
+					postComment();
+				} else {
+					throw new Exception('Le formulaire doit etre remplit.');
+				}
+				break;
+			case 'disconnect' :
+				//disconnect
+				disconnect();
+				break;
+			case 'add' :
+				//add article
+				add();
+				break;
+			case 'edit' :
+				//edit articles
+				edit();
+				break;
+			case 'delete' :
+				//delete article
+				delete();
+				break;
+			case 'moderate' :
+				//moderate comments
+				moderate();
+				break;
+			case 'viewReports' :
+				//moderate reports
+				viewReports();
+				break;
+			default :
+				throw new Exception('L\'action renseignée est inexistante.');
 		}
-		//display one article
-		else if($_GET['action'] === 'article' && isset($_GET['id_article'])){
-			$_GET['id_article'] = (int) $_GET['id_article'];
-			if($_GET['id_article'] > 0){
-				article();
-			}else{
-				throw new Exception('L\'article est introuvable.');
-			}
-		}
-		//post a comment
-		else if($_GET['action'] === 'postComment'){
-			if(isset($_POST['post_comment_pseudo']) && isset($_POST['post_comment_content'])){
-				postComment();
-			}else{
-				throw new Exception('Le formulaire doit etre remplit.');
-			}
-		}
-		//disconnect
-		else if($_GET['action'] === 'disconnect'){
-			disconnect();
-		}
-		//add article
-		else if($_GET['action'] === 'add'){
-			add();
-		}
-		//edit articles
-		else if($_GET['action'] === 'edit'){
-			edit();
-		}
-		//delete article
-		else if($_GET['action'] === 'delete'){
-			delete();
-		}
-		//moderate comments
-		else if($_GET['action'] === 'moderate'){
-			moderate();
-		}
-		//moderate reports
-		else if($_GET['action'] === 'viewReports'){
-			viewReports();
-		}
-		//"action" value is unknow
-		else{
-			throw new Exception('L\'action renseignée est inexistante.');
-		}
-	}
-	//"action" undefined -> home
-	else{
+	} else {
+		//"action" undefined -> home
 		accueilAdmin();
 	}
-}
-catch(Exception $e){
-	error($e -> getMessage());
+} catch (Exception $e) {
+	error($e->getMessage());
 }

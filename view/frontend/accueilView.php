@@ -1,46 +1,60 @@
 <?php
 
-$LastArticle = $ArticlesManager -> getLastArticle();
-$article = $LastArticle -> fetch();
-
 ob_start();
 
 require('hero.php');
 
 ?>
-<section id="articles" class="container">
-	<div class="article">
-		<h2>Dernier article publié :<br><?=$article['title']?></h2>
-		<div class="article_content">
-			<?php
-			if(strlen($article['content']) > 500){
-				for($i =0; $i<500; $i++){
-					echo $article['content'][$i];
-				}
-				echo " ...";
-			}
-			else{
-				echo $article['content'];
-			}
-			?>	
-		</div>
-		<p class="article_author"><?=$article['author']?></p>
-		<p class="article_date_publication">Le <?=$article['date_publication']?></p>
+<article id="articles" class="container">
+	<section class="article">
 		<?php
-		if(!empty($article['date_edit'])){
-			echo '<p class="article_date_edit"> Edité le ' . $article['date_edit'] . '</p>';
-		}
+			if (!empty($article)) {
+				?>
+				<h2>Dernier article publié :<br><?=$article['title']?></h2>
+
+				<div class="articleContent">
+					<?php
+					if (strlen($article['content']) > 500) {
+						for ($i =0; $i<500; $i++) {
+							echo $article['content'][$i];
+						}
+						echo " ...";
+					} else {
+						echo $article['content'];
+					}
+					?>	
+				</div>
+
+				<p class="articleAuthor">
+					<?=$article['author']?>
+				</p>
+
+				<p class="articleDatePublication">
+					Le <?=$article['datePublication']?>
+				</p>
+
+				<?php
+				if (!empty($article['dateEdit'])) {
+					echo '<p class="articleDateEdit"> Edité le ' . $article['dateEdit'] . '</p>';
+				}
+				?>
+
+				<p class="linkComment">
+					<a href="Jean-Forteroche.php?action=article&amp;idArticle=<?=$article['id']?>">Lire l'article</a>
+				</p>
+				<?php
+			} else {
+				echo '<p class="infoComment">Il n\'y a aucun article a afficher pour l\'instant.</p>';
+			}
 		?>
-		<p class="link_comment"><a href="Jean-Forteroche.php?action=article&amp;id_article=<?=$article['id']?>">Lire l'article</a></p>
-	</div>
+	</section>
 
 	<div class="info">
 		Consulter <a href="Jean-Forteroche.php?action=listArticles">tout les articles</a>
 	</div>
-</section>
+</article>
 <?php
 
 $content = ob_get_clean();
-$LastArticle -> closeCursor();
 
 require('view/template.php');

@@ -2,12 +2,12 @@
 
 ob_start();
 
-if(isset($_SESSION['pseudo'])){
+if (isset($_SESSION['pseudo'])) {
 	//user is connected
 	?>
 	<h1>Bienvenue, <?=$_SESSION['pseudo']?></h1>
 	<h2>Que souhaitez vous faire ?</h2>
-	<section id="accueil_admin" class="container">
+	<section id="accueilAdmin" class="container">
 		<a href="Jean-Forteroche_admin.php?action=add">
 			<div>
 				<h3>Ajouter un article</h3>
@@ -29,29 +29,26 @@ if(isset($_SESSION['pseudo'])){
 	</section>
 	<p class="info"><a href="Jean-Forteroche.php?action=listArticles">Voir tout les articles</a></p>
 	<?php
-}
-else{
+} else {
 	//user is not connected
-	if(isset($_POST['post_connect_pseudo']) && isset($_POST['post_connect_password'])){
+	if (isset($_POST['postConnectPseudo']) && isset($_POST['postConnectPassword'])) {
 		//if user try to connect
-		if(isset($_POST['stayConnect'])){
-			setcookie('admin', $_POST['post_connect_pseudo'], time()+(365*24*3600), null, null, false, true);
+		if (isset($_POST['stayConnect'])) {
+			setcookie('admin', $_POST['postConnectPseudo'], time()+(365*24*3600), null, null, false, true);
 		}
 
 		$UserManager = new UserManager();
 
-		if($UserManager -> exists($_POST['post_connect_pseudo'])){
+		if ($UserManager->exists($_POST['postConnectPseudo'])) {
 			//pseudo exists
-			if($UserManager -> checkPassword($_POST['post_connect_pseudo'], $_POST['post_connect_password'])){
+			if ($UserManager->checkPassword($_POST['postConnectPseudo'], $_POST['postConnectPassword'])) {
 				//password is ok
-				$_SESSION['pseudo'] = htmlspecialchars($_POST['post_connect_pseudo']);
+				$_SESSION['pseudo'] = htmlspecialchars($_POST['postConnectPseudo']);
 				header('Location: Jean-Forteroche_admin.php');
-			}
-			else{
+			} else {
 				$message = 'Le mot de passe est incorrecte';
 			}
-		}
-		else{
+		} else {
 			$message = 'L\'identifiant est incorrecte';
 		}
 	}
@@ -61,23 +58,23 @@ else{
 	<form method="POST" action="Jean-Forteroche_admin.php">
 		<h2>Entrez vos identifiants de connection</h2>
 		<p>
-			<label for="post_connect_pseudo">Identifiant</label>
-			<input type="text" name="post_connect_pseudo" required="">
+			<label for="postConnectPseudo">Identifiant</label>
+			<input type="text" name="postConnectPseudo" required="">
 		</p>
 		<p>
-			<label for="post_connect_password">Mot de passe</label>
-			<input type="password" name="post_connect_password">
+			<label for="postConnectPassword">Mot de passe</label>
+			<input type="password" name="postConnectPassword" required="">
 		</p>
 		<p>
 			<label for="stayConnect">Rester connecté</label>
 			<input type="checkbox" name="stayConnect" id="stayConnect">
 		</p>
 		<p>
-			<input type="submit" name="submit" value="connection" required="">
+			<input type="submit" name="submit" value="connection">
 		</p>
 	</form>
 	<?php
-	if(isset($message)){
+	if (isset($message)) {
 		echo '<p class="infoError">' . $message . '</p>';
 	}
 }

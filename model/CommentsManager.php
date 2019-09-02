@@ -1,68 +1,75 @@
 <?php
 
-class CommentsManager extends ReportManager{
-
-	public function getComment(int $idCom){
-		if($idCom > 0){
-			return $this -> sql('
-				SELECT id, id_article, content, nb_report, author, author_is_admin, author_edit, DATE_FORMAT(date_publication, "%d/%m/%Y à %H:%i.%s") AS date_publication, DATE_FORMAT(date_edit, "%d/%m/%Y à %H:%i.%s") AS date_edit
+class CommentsManager extends ReportManager
+{
+	public function getComment(int $idComment)
+	{
+		if ($idComment > 0) {
+			return $this->sql('
+				SELECT id, idArticle, content, nbReport, author, authorIsAdmin, authorEdit, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit
 				FROM comments
-				WHERE id = :idCom',
-				[':idCom' => $idCom]);
+				WHERE id = :idComment',
+				[':idComment' => $idComment]);
 		}
 	}
 
-	public function getComments(int $idArt){
-		if($idArt > 0){
-			return $this -> sql('
-				SELECT id, id_article, content, nb_report, author, author_is_admin, author_edit, DATE_FORMAT(date_publication, "%d/%m/%Y à %H:%i.%s") AS date_publication, DATE_FORMAT(date_edit, "%d/%m/%Y à %H:%i.%s") AS date_edit
+	public function getComments(int $idArticle)
+	{
+		if ($idArticle > 0) {
+			return $this->sql('
+				SELECT id, idArticle, content, nbReport, author, authorIsAdmin, authorEdit, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit
 				FROM comments
-				WHERE id_article = :id
-				ORDER BY date_publication DESC',
-				[':id' => $idArt]);
+				WHERE idArticle = :idArticle
+				ORDER BY id DESC',
+				[':idArticle' => $idArticle]);
 		}
 	}
 
-	public function getLastComments(int $nb_comments){
-		if($nb_comments > 0){
-			return $this -> sql('
-				SELECT id, id_article, content, nb_report, author, author_is_admin, author_edit, DATE_FORMAT(date_publication, "%d/%m/%Y à %H:%i.%s") AS date_publication, DATE_FORMAT(date_edit, "%d/%m/%Y à %H:%i.%s") AS date_edit
+	public function getLastComments(int $nbComments)
+	{
+		if ($nbComments > 0) {
+			return $this->sql('
+				SELECT id, idArticle, content, nbReport, author, authorIsAdmin, authorEdit, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit
 				FROM comments
 				ORDER BY id DESC
-				LIMIT 0, :nb_comments',
-				[':nb_comments' => $nb_comments]);
+				LIMIT 0, :nbComments',
+				[':nbComments' => $nbComments]);
 		}
 	}
 
-	public function set(Comment $Comment){
-		if($Comment -> author_is_admin()){
-			$this -> sql('
-			INSERT INTO comments (id_article, content, author, author_is_admin, date_publication)
-			VALUES (:id_article, :content, :author, :author_is_admin, NOW())',
-			[':id_article' => $Comment -> id_article(), ':content' => $Comment -> content(), ':author' => $Comment -> author(), ':author_is_admin' => true]);
-		}
-		else{
-			$this -> sql('
-			INSERT INTO comments (id_article, content, author, date_publication)
-			VALUES (:id_article, :content, :author, NOW())',
-			[':id_article' => $Comment -> id_article(), ':content' => $Comment -> content(), ':author' => $Comment -> author()]);
+	public function set(Comment $Comment)
+	{
+		if ($Comment->getAuthorIsAdmin()) {
+			$this->sql('
+				INSERT INTO comments (idArticle, content, author, authorIsAdmin, datePublication)
+				VALUES (:idArticle, :content, :author, :authorIsAdmin, NOW())',
+				[':idArticle' => $Comment->getIdArticle(), ':content' => $Comment->getContent(), ':author' => $Comment->getAuthor(),
+				 ':authorIsAdmin' => true]);
+		} else {
+			$this->sql('
+				INSERT INTO comments (idArticle, content, author, datePublication)
+				VALUES (:idArticle, :content, :author, NOW())',
+				[':idArticle' => $Comment->getIdArticle(), ':content' => $Comment->getContent(), ':author' => $Comment->getAuthor()]);
 		}
 	}
 
-	public function update(Comment $Comment){
-		$this -> sql('
+	public function update(Comment $Comment)
+	{
+		$this->sql('
 			UPDATE comments
-			SET content = :content, author_edit = :author_edit, author = :author, date_edit = NOW()
+			SET content = :content, authorEdit = :authorEdit, author = :author, dateEdit = NOW()
 			WHERE id = :id',
-			[':content' => $Comment -> content(), ':author_edit' => $Comment -> author_edit(), ':author' => $Comment -> author(), ':id' => $Comment -> id()]);
+			[':content' => $Comment->getContent(), ':authorEdit' => $Comment->getAuthorEdit(), ':author' => $Comment->getAuthor(),
+			 ':id' => $Comment->getId()]);
 	}
 
-	public function delete(int $idCom){
-		if($idCom > 0){
-			$this -> sql('
+	public function delete(int $idComment)
+	{
+		if ($idComment > 0) {
+			$this->sql('
 				DELETE FROM comments
-				WHERE id = :id',
-				[':id' => $idCom]);
+				WHERE id = :idComment',
+				[':idComment' => $idComment]);
 		}
 	}
 }

@@ -1,17 +1,19 @@
-<div id="hero">
+<section id="hero">
 	<div class="container">
 		<h1>Billet simple pour l'Alaska</h1>
 	</div>
 
-	<div id="hero_img" class="full_width"></div>
+	<div id="heroImg" class="fullWidth"></div>
 
 	<div class="container">
-		<div id="citation" class="full_width">
+		<blockquote id="citation" class="fullWidth">
 			<cite>
-				Bonjour à tous, vous êtes ici sur mon nouveau Blog que j'ai décider d'ouvrir afin de vous faire découvrir mon nouveau roman "Billet simple pour l'Alaska".<br><br>
-				Je publierais ce roman par chapitre directement sur ce blog vous faisant ainsi découvrir celui-ci en avant première.<br><br>
+				Bonjour à tous, vous êtes ici sur mon nouveau <strong>Blog</strong> que j'ai décider d'ouvrir afin de vous faire découvrir mon nouveau roman "<strong>Billet simple pour l'Alaska</strong>".<br><br>
+				Je publierais ce <strong>roman</strong> par chapitre directement sur ce blog vous faisant ainsi découvrir celui-ci en avant première.
+				<br>
+				<br>
 				Merci à tous et bonne lecture.
 			</cite>
-		</div>
+		</blockquote>
 	</div>
-</div>
+</section>

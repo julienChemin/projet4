@@ -21,7 +21,7 @@ body{
 	max-width: 1200px;
 	margin: auto;
 }
-.full_width{
+.fullWidth{
 	width: 100%;
 }
 h1, h2, h3{
@@ -191,7 +191,7 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 }
 
 /* ------------------------ HERO ------------------------ */
-#hero_img{
+#heroImg{
 	background-image: url("../images/alaska.png");
 	background-attachment: fixed;
 	background-size: cover;
@@ -232,7 +232,7 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	padding: 0 10px;
 	box-shadow: #2682c4 5px 5px 5px;
 }
-.article_content{
+.articleContent{
 	background-color: #f1f2f6;
 
 	border: solid 1.5px #74bbe4;
@@ -240,10 +240,10 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 
 	padding: 10px;
 }
-.article_author, .article_date_publication, .article_date_edit{
+.articleAuthor, .articleDatePublication, .articleDateEdit{
 	font-style: italic;
 }
-.link_comment{
+.linkComment{
 	text-align: right;
 }
 
@@ -268,10 +268,10 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 
 	align-content: right;
 }
-.comment_author{
+.commentAuthor{
 	font-weight: bold;
 }
-.comment_content{
+.commentContent{
 	background-color: #f1f2f6;
 
 	border: solid 1.5px #74bbe4;
@@ -279,7 +279,7 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 
 	padding: 10px;
 }
-.comment_date_publication, .comment_edit{
+.commentDatePublication, .commentEdit{
 	font-style: italic;
 	text-align: right;
 }
@@ -287,12 +287,12 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 /* --------------------------------------------------------------- ADMIN ---------------------------------------------------- */
 
 /* ------------------------ HOME ------------------------ */
-#accueil_admin{
+#accueilAdmin{
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 }
-#accueil_admin > a{
+#accueilAdmin > a{
 	width: 25%;
 	height: 200px;
 
@@ -304,7 +304,7 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 
 	padding: 10px;
 }
-#accueil_admin div{
+#accueilAdmin div{
 	height: 100%;
 
 	display: flex;
@@ -312,35 +312,35 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	justify-content: center;
 	align-items: center;
 }
-#accueil_admin h3{
+#accueilAdmin h3{
 	margin-top: 0;
 }
-#accueil_admin i{
+#accueilAdmin i{
 	font-size: 3em;
 }
 
 /* ------------------------ ADD ARTICLE ------------------------ */
-#form_add_edit_article form{
+#formAddEditArticle form{
 	text-align: left;
 }
-#form_add_edit_article input[type='text']{
+#formAddEditArticle input[type='text']{
 	width: 50%;
 }
-#form_add_edit_article input[type='submit']{
+#formAddEditArticle input[type='submit']{
 	font-size: 1.2em;
 }
-#form_add_edit_article form > p:last-child{/*input submit*/
+#formAddEditArticle form > p:last-child{/*input submit*/
 	text-align: right;
 }
-#form_add_edit_article textarea{
+#formAddEditArticle textarea{
 	height: 500px;
 }
-#form_add_edit_article #content{
+#formAddEditArticle #content{
 	display: none;
 }
 
 /* ------------------------ EDIT ARTICLE / COMMENT / REPORT ------------------------ */
-#edit_articles, #moderate_comments, #moderate_report{
+#editArticles, #moderateComments, #moderateReport{
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -349,12 +349,12 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 }
 
 /* ------------------------ DELETE ARTICLE / COMMENT ------------------------ */	
-#form_confirmation{
+#formConfirmation{
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 }
-#form_confirmation input{
+#formConfirmation input{
 	font-size: 1.3em;
 	margin-top: 50px;
 }
@@ -364,5 +364,29 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 ====================================================================================================================================*/
 
 @media all and (min-width:992px) and (max-width:1200px){
+	
+}
+
+/*====================================================================================================================================
+															medium device
+====================================================================================================================================*/
+
+@media all and (min-width:768px) and (max-width:992px){
+
+}
+
+/*====================================================================================================================================
+															small device
+====================================================================================================================================*/
+
+@media all and (min-width:600px) and (max-width:768px){
+
+}
+
+/*====================================================================================================================================
+															smartphone
+====================================================================================================================================*/
+
+@media all and (max-width:600px){
 	
 }

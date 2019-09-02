@@ -9,16 +9,19 @@
 		
 	</head>
 	<body>
-
 		<?php 
-		if(isset($_SESSION['pseudo'])){
+		if (isset($_SESSION['pseudo'])) {
 			require('backend/navbar.php');
-		}else{
+		} else {
 			require('frontend/navbar.php');
 		}
-		
-		echo $content;
+		?>
 
+		<main>
+			<?=$content?>
+		</main>
+
+		<?php
 		require('gitignore/key.php');
 		?>
 		<script src='https://cdn.tiny.cloud/1/<?=$tinyMCEapiKey?>/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
