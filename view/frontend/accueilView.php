@@ -1,6 +1,6 @@
 <?php
 
-ob_start();
+//ob_start();
 
 require('hero.php');
 
@@ -8,39 +8,39 @@ require('hero.php');
 <article id="articles" class="container">
 	<section class="article">
 		<?php
-			if (!empty($article)) {
+			if (!empty($data['article'])) {
 				?>
-				<h2>Dernier article publié :<br><?=$article['title']?></h2>
+				<h2>Dernier article publié :<br><?=$data['article']['title']?></h2>
 
 				<div class="articleContent">
 					<?php
-					if (strlen($article['content']) > 500) {
+					if (strlen($data['article']['content']) > 500) {
 						for ($i =0; $i<500; $i++) {
-							echo $article['content'][$i];
+							echo $data['article']['content'][$i];
 						}
 						echo " ...";
 					} else {
-						echo $article['content'];
+						echo $data['article']['content'];
 					}
 					?>	
 				</div>
 
 				<p class="articleAuthor">
-					<?=$article['author']?>
+					<?=$data['article']['author']?>
 				</p>
 
 				<p class="articleDatePublication">
-					Le <?=$article['datePublication']?>
+					Le <?=$data['article']['datePublication']?>
 				</p>
 
 				<?php
-				if (!empty($article['dateEdit'])) {
-					echo '<p class="articleDateEdit"> Edité le ' . $article['dateEdit'] . '</p>';
+				if (!empty($data['article']['dateEdit'])) {
+					echo '<p class="articleDateEdit"> Edité le ' . $data['article']['dateEdit'] . '</p>';
 				}
 				?>
 
 				<p class="linkComment">
-					<a href="Jean-Forteroche.php?action=article&amp;idArticle=<?=$article['id']?>">Lire l'article</a>
+					<a href="Jean-Forteroche.php?action=article&amp;idArticle=<?=$data['article']['id']?>">Lire l'article</a>
 				</p>
 				<?php
 			} else {
@@ -55,6 +55,6 @@ require('hero.php');
 </article>
 <?php
 
-$content = ob_get_clean();
+//$content = ob_get_clean();
 
-require('view/template.php');
+//require('view/template.php');

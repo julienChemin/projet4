@@ -6,20 +6,6 @@ if (isset($_SESSION['pseudo'])) {
 
 	echo '<h1>Modérer les commentaires</h1>';
 
-	if (isset($_POST['idComment']) && isset($_POST['author']) && isset($_POST['tinyMCEtextarea'])) {
-		//edit comment
-		$CommentsManager->update(new Comment([
-			'author' => $_POST['author'],
-			'authorEdit' => 'Jean-Forteroche', 
-			'content' => $_POST['tinyMCEtextarea'],
-			'id' => $_POST['idComment']]));
-
-		$CommentsManager->deleteReportsFromComment($_POST['idComment']);
-		$CommentsManager->setNbReport($_POST['idComment'], 0);
-
-		$message = 'Le commentaire a bien été édité.';
-	}
-
 	//message
 	if (isset($message)) {
 		echo '<p class="infoComment">' . $message . '</p>';
@@ -28,9 +14,6 @@ if (isset($_SESSION['pseudo'])) {
 	if (isset($_GET['idComment'])) {
 		if ($_GET['idComment'] > 0) {
 			//display form to edit comment
-			$Comment = $CommentsManager->getComment($_GET['idComment']);
-			$comment = $Comment->fetch();
-
 			?>
 			<section id="formAddEditArticle" class="container">
 				<form method="POST" action="Jean-Forteroche_admin.php?action=moderate">
@@ -38,33 +21,34 @@ if (isset($_SESSION['pseudo'])) {
 						<label for="author">Auteur du commentaire</label>
 						<input type="text" name="author" value="<?=$comment['author']?>">
 					</p>
+
 					<p>
 						<textarea id="tinyMCEtextarea" name="tinyMCEtextarea"></textarea>
 					</p>
+
 					<p>
-						<input type="hidden" name="content" id="content" value="<?=$comment['content']?>">
 						<input type="hidden" name="idComment" id="idComment" value="<?=$_GET['idComment']?>">
 						<input type="submit" name="submit" value="Editer">
 					</p>
 				</form>
+
+				<div id="content">
+					<?=$comment['content']?>
+				</div>
 			</section>
 			<?php
-
-			$Comment->closeCursor();
 		} else {
 			throw new Exception('Le commentaire spécifié est introuvable');
 		}
 	} else {
 		//display list of most reported comments
-		$Comments = $CommentsManager->getMostReportedComments();
-
 		?>
 		<section class="container" id="moderateComments">
 			<?php
-			if ($comment = $Comments->fetch()) {
+			if (!empty($Comments)) {
 				?>
 				<table class="fullWidth">
-					<caption><h2>Liste des Commentaires signalé</h2></caption>
+					<caption><h2>Liste des Commentaires signalés</h2></caption>
 					<tr>
 						<th>Commentaire</th>
 						<th>Article concerné</th>
@@ -72,7 +56,7 @@ if (isset($_SESSION['pseudo'])) {
 						<th>Supprimer</th>
 					</tr>
 					<?php
-					do {
+					foreach ($Comments as $comment) {
 						//if comment's author is admin, display name in purple
 						$style ="";
 						if ($comment['authorIsAdmin']) {
@@ -103,14 +87,12 @@ if (isset($_SESSION['pseudo'])) {
 							</td>
 						</tr>
 						<?php
-					} while ($comment = $Comments->fetch());
+					}
 				echo '</table>';
 			} else {
 				echo '<p class="infoComment">Il n\'y a aucun commentaire à afficher.</p>';
 			}
-			echo '</section>';
-
-		$Comments->closeCursor();
+		echo '</section>';
 	}
 } else {
 	header('Location: Jean-Forteroche_admin.php');

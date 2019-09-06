@@ -2,16 +2,9 @@
 
 class CommentsManager extends ReportManager
 {
-	public function getComment(int $idComment)
-	{
-		if ($idComment > 0) {
-			return $this->sql('
-				SELECT id, idArticle, content, nbReport, author, authorIsAdmin, authorEdit, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit
-				FROM comments
-				WHERE id = :idComment',
-				[':idComment' => $idComment]);
-		}
-	}
+	public static $TABLE_NAME = 'comments';
+	public static $TABLE_PK = 'id';
+	public static $TABLE_CHAMPS ='id, idArticle, content, nbReport, author, authorIsAdmin, authorEdit, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit';
 
 	public function getComments(int $idArticle)
 	{
@@ -25,18 +18,6 @@ class CommentsManager extends ReportManager
 		}
 	}
 
-	public function getLastComments(int $nbComments)
-	{
-		if ($nbComments > 0) {
-			return $this->sql('
-				SELECT id, idArticle, content, nbReport, author, authorIsAdmin, authorEdit, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit
-				FROM comments
-				ORDER BY id DESC
-				LIMIT 0, :nbComments',
-				[':nbComments' => $nbComments]);
-		}
-	}
-
 	public function set(Comment $Comment)
 	{
 		if ($Comment->getAuthorIsAdmin()) {
@@ -45,11 +26,15 @@ class CommentsManager extends ReportManager
 				VALUES (:idArticle, :content, :author, :authorIsAdmin, NOW())',
 				[':idArticle' => $Comment->getIdArticle(), ':content' => $Comment->getContent(), ':author' => $Comment->getAuthor(),
 				 ':authorIsAdmin' => true]);
+
+			return $this;
 		} else {
 			$this->sql('
 				INSERT INTO comments (idArticle, content, author, datePublication)
 				VALUES (:idArticle, :content, :author, NOW())',
 				[':idArticle' => $Comment->getIdArticle(), ':content' => $Comment->getContent(), ':author' => $Comment->getAuthor()]);
+
+			return $this;
 		}
 	}
 
@@ -61,15 +46,7 @@ class CommentsManager extends ReportManager
 			WHERE id = :id',
 			[':content' => $Comment->getContent(), ':authorEdit' => $Comment->getAuthorEdit(), ':author' => $Comment->getAuthor(),
 			 ':id' => $Comment->getId()]);
-	}
 
-	public function delete(int $idComment)
-	{
-		if ($idComment > 0) {
-			$this->sql('
-				DELETE FROM comments
-				WHERE id = :idComment',
-				[':idComment' => $idComment]);
-		}
+		return $this;
 	}
 }

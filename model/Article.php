@@ -67,6 +67,7 @@ class Article
 	{
 		if ($id > 0){
 			$this->id = $id;
+			return $this;
 		}
 	}
 
@@ -74,6 +75,7 @@ class Article
 	{
 		if (strlen($author) > 0 && strlen($author) <=100){
 			$this->author = $author;
+			return $this;
 		}
 	}
 
@@ -81,6 +83,7 @@ class Article
 	{
 		if (strlen($title) > 0 && strlen($title) <= 255){
 			$this->title = $title;
+			return $this;
 		}
 	}
 
@@ -88,6 +91,7 @@ class Article
 	{
 		if (strlen($content) > 0){
 			$this->content = $content;
+			return $this;
 		}
 	}
 
@@ -95,6 +99,7 @@ class Article
 	{
 		if (!empty($date)){
 			$this->datePublication = $date;
+			return $this;
 		}
 	}
 
@@ -102,6 +107,7 @@ class Article
 	{
 		if (strlen($authorEdit) > 0 && strlen($authorEdit) <=100){
 			$this->authorEdit = $authorEdit;
+			return $this;
 		}
 	}
 
@@ -109,6 +115,7 @@ class Article
 	{
 		if (!empty($dateEdit)){
 			$this->dateEdit = $dateEdit;
+			return $this;
 		}
 	}
 }

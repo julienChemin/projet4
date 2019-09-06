@@ -8,7 +8,8 @@ function chargerClass($class)
 }
 spl_autoload_register('chargerClass');
 
-require('controller/frontend.php');
+//require('controller/frontend.php');
+$frontend = new Frontend();
 
 /*---------------------------------*/
 
@@ -17,12 +18,12 @@ try {
 		switch ($_GET['action']) {
 			case 'listArticles' :
 				//list all articles
-				listArticles();
+				$frontend->listArticles();
 				break;
 			case 'article' :
 				//display one article
 				if (isset($_GET['idArticle']) && $_GET['idArticle'] > 0) {
-					article();
+					$frontend->article();
 				} else {
 					throw new Exception('L\'article est introuvable.');
 				}
@@ -30,7 +31,7 @@ try {
 			case 'postComment' :
 				//post a comment
 				if (isset($_POST['postCommentPseudo']) && isset($_POST['postCommentContent']) && isset($_POST["idArticle"])) {
-					postComment();
+					$frontend->postComment();
 				} else {
 					throw new Exception('Le formulaire doit etre remplit.');
 				}
@@ -38,7 +39,7 @@ try {
 			case 'report' :
 				//form for report
 				if (isset($_GET['idComment']) && $_GET['idComment'] > 0) {
-					report();
+					$frontend->report();
 				} else {
 					throw new Exception('Le commentaire est introuvable');
 				}
@@ -49,7 +50,7 @@ try {
 		}
 	} else {
 		//"action" undefined -> home
-		accueil();
+		$frontend->accueil();
 	}
 } catch (Exception $e) {
 	error($e->getMessage());

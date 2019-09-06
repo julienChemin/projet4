@@ -79,6 +79,7 @@ class Comment
 	{
 		if ($idComment > 0) {
 			$this->id = $idComment;
+			return $this;
 		}
 	}
 
@@ -86,6 +87,7 @@ class Comment
 	{
 		if ($idArticle > 0) {
 			$this->idArticle = $idArticle;
+			return $this;
 		}
 	}
 
@@ -93,6 +95,7 @@ class Comment
 	{
 		if (strlen($content) > 0) {
 			$this->content = $content;
+			return $this;
 		}
 	}
 
@@ -100,18 +103,21 @@ class Comment
 	{
 		if (strlen($author) > 0) {
 			$this->author = $author;
+			return $this;
 		}
 	}
 
 	public function setAuthorIsAdmin(bool $isAdmin)
 	{
 		$this->authorIsAdmin = $isAdmin;
+		return $this;
 	}
 
 	public function setDatePublication($date)
 	{
 		if (!empty($date)) {
 			$this->datePublication = $date;
+			return $this;
 		}
 	}
 
@@ -119,6 +125,7 @@ class Comment
 	{
 		if (strlen($authorEdit) > 0) {
 			$this->authorEdit = $authorEdit;
+			return $this;
 		}
 	}
 
@@ -126,6 +133,7 @@ class Comment
 	{
 		if (!empty($dateEdit)) {
 			$this->dateEdit = $dateEdit;
+			return $this;
 		}
 	}
 
@@ -133,6 +141,7 @@ class Comment
 	{
 		if ($nbReport >= 0) {
 			$this->nbReport = $nbReport;
+			return $this;
 		}
 	}
 }

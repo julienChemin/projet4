@@ -1,6 +1,6 @@
 <?php
 
-abstract class ReportManager extends Database
+abstract class ReportManager extends AbstractManager
 {
 	public function getMostReportedComments()
 	{
@@ -23,6 +23,8 @@ abstract class ReportManager extends Database
 				INSERT INTO report (idReportedComment, author, content, dateReport)
 				VALUES (:idReportedComment, :author, :content, NOW())',
 				[':idReportedComment' => $idComment, ':author' => $author, ':content' => $content]);
+
+			return $this;
 		}
 	}
 
@@ -42,6 +44,8 @@ abstract class ReportManager extends Database
 				$nbReport = $nbReportBefore - 1;
 
 				$this->setNbReport($idComment, $nbReport);
+
+				return $this;
 			}
 		}
 	}
@@ -82,6 +86,8 @@ abstract class ReportManager extends Database
 				SET nbReport = :nbReport
 				WHERE id = :idComment',
 				[':idComment' => $idComment, ':nbReport' => $nbReport]);
+
+			return $this;
 		}
 	}
 
@@ -103,6 +109,8 @@ abstract class ReportManager extends Database
 				DELETE FROM report
 				WHERE idReportedComment = :idReportedComment',
 				[':idReportedComment' => $idComment]);
+
+			return $this;
 		}
 	}
 }

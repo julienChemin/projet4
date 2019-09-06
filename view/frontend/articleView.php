@@ -77,6 +77,8 @@ ob_start();
 						//display link "moderate" for admin or "report" for users
 						if (isset($_SESSION['pseudo'])) {
 							echo '<a href="Jean-Forteroche_admin.php?action=moderate&amp;idComment=' . $comment['id'] . '">Modérer</a>';
+							echo ' / ';
+							echo '<a href="Jean-Forteroche_admin.php?action=delete&amp;idComment=' . $comment['id'] . '">Supprimer</a>';
 						} else {
 							echo '<a href="Jean-Forteroche.php?action=report&amp;idComment=' . $comment['id'] . '">Signaler</a>';
 						}
