@@ -1,11 +1,10 @@
 <?php
 
-ob_start();
-
-if (empty($error_msg)) {
-		$error_msg = 'Une erreur inconnu est survenue, merci de réessayer.'; 
+if (empty($data['error_msg'])) {
+		$message = 'Une erreur inconnu est survenue, merci de réessayer.'; 
+	} else {
+		$message = $data['error_msg'];
 	}
-	$message = $error_msg;
 
 ?>
 
@@ -18,7 +17,3 @@ if (empty($error_msg)) {
 </section>
 
 <?php
-
-$content = ob_get_clean();
-
-require('view/template.php');

@@ -10,9 +10,11 @@ class Article
 			$authorEdit,
 			$dateEdit;
 
-	public function __construct(array $data)
+	public function __construct(array $data = null)
 	{
-		$this->hydrate($data);
+		if (!empty($data)) {
+			$this->hydrate($data);
+		}
 	}
 
 	public function hydrate(array $data)

@@ -1,30 +1,24 @@
-<?php
-
-ob_start();
-
-?>
-
 <article class="fullWidth">
 	<section id="articles" class="container">
 		<!--display article-->
 		<div class="article">
-			<h2><?=$article['title']?></h2>
+			<h2><?=$data['article']->getTitle()?></h2>
 
 			<div class="articleContent">
-				<?=$article['content']?>
+				<?=$data['article']->getContent()?>
 			</div>
 
 			<p class="articleAuthor">
-				<?=$article['author']?>
+				<?=$data['article']->getAuthor()?>
 			</p>
 
 			<p class="articleDatePublication">
-				Le <?=$article['datePublication']?>
+				Le <?=$data['article']->getDatePublication()?>
 			</p>
 
 			<?php
-			if (!empty($article['dateEdit'])) {
-				echo '<p class="articleDateEdit"> Edité le ' . $article['dateEdit'] . '</p>';
+			if (!empty($data['article']->getDateEdit())) {
+				echo '<p class="articleDateEdit"> Edité le ' . $data['article']->getDateEdit() . '</p>';
 			}
 			?>
 
@@ -46,7 +40,7 @@ ob_start();
 
 			<p>
 				<textarea name="postCommentContent" id="postCommentContent" placeholder="Votre commentaire" required=""></textarea>
-				<input type="hidden" name="idArticle" value="<?=$article['id']?>">
+				<input type="hidden" name="idArticle" value="<?=$data['article']->getId()?>">
 			</p>
 
 			<p>
@@ -56,17 +50,17 @@ ob_start();
 
 		<!--display comments-->
 		<?php
-		if (!empty($comments)) {
-			foreach ($comments as $comment) {
+		if (!empty($data['comments'])) {
+			foreach ($data['comments'] as $comment) {
 				//if comment's author is admin, display name in purple
 				$nameStyle ="";
-				if ($comment['authorIsAdmin']) {
+				if ($comment->getAuthorIsAdmin()) {
 					$nameStyle = 'style="color:purple;"';
 				}
 
 				//if looking for reported comment, display border in red
 				$borderStyle = "";
-				if (isset($_GET['idComment']) && $_GET['idComment'] === $comment['id']) {
+				if (isset($_GET['idComment']) && $_GET['idComment'] === $comment->getId()) {
 					$borderStyle = 'style="border-color:red;"';
 				}
 				?>
@@ -76,24 +70,24 @@ ob_start();
 						<?php
 						//display link "moderate" for admin or "report" for users
 						if (isset($_SESSION['pseudo'])) {
-							echo '<a href="Jean-Forteroche_admin.php?action=moderate&amp;idComment=' . $comment['id'] . '">Modérer</a>';
+							echo '<a href="Jean-Forteroche_admin.php?action=moderate&amp;idComment=' . $comment->getId() . '">Modérer</a>';
 							echo ' / ';
-							echo '<a href="Jean-Forteroche_admin.php?action=delete&amp;idComment=' . $comment['id'] . '">Supprimer</a>';
+							echo '<a href="Jean-Forteroche_admin.php?action=delete&amp;idComment=' . $comment->getId() . '">Supprimer</a>';
 						} else {
-							echo '<a href="Jean-Forteroche.php?action=report&amp;idComment=' . $comment['id'] . '">Signaler</a>';
+							echo '<a href="Jean-Forteroche.php?action=report&amp;idComment=' . $comment->getId() . '">Signaler</a>';
 						}
 						?>
 					</div>
 
-					<p class="commentAuthor"<?=$nameStyle?>><?=$comment['author']?></p>
+					<p class="commentAuthor"<?=$nameStyle?>><?=$comment->getAuthor()?></p>
 
-					<div class="commentContent"><?=$comment['content']?></div>
+					<div class="commentContent"><?=$comment->getContent()?></div>
 
-					<p class="commentDatePublication"><?=$comment['datePublication']?></p>
+					<p class="commentDatePublication"><?=$comment->getDatePublication()?></p>
 
 					<?php
-					if (!empty($comment['dateEdit']) && !empty($comment['authorEdit'])) {
-						echo '<p class="commentEdit"> Edité le ' . $comment['dateEdit'] . ' par ' . $comment['authorEdit'] . '</p>';
+					if (!empty($comment->getDateEdit()) && !empty($comment->getAuthorEdit())) {
+						echo '<p class="commentEdit"> Edité le ' . $comment->getDateEdit() . ' par ' . $comment->getAuthorEdit() . '</p>';
 					}
 				echo '</div>';
 			}
@@ -104,7 +98,3 @@ ob_start();
 	</section>
 </article>
 <?php
-
-$content = ob_get_clean();
-
-require('view/template.php');

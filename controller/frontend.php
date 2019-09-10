@@ -7,28 +7,28 @@ class Frontend
 		$ArticlesManager = new ArticlesManager();
 
 		$lastArticle = $ArticlesManager->getLastArticle();
-		$article = $lastArticle->fetch();
+		$article = $lastArticle->fetchObject('Article');
 
 		RenderView::render('template.php', 'frontend/accueilView.php', ['article' => $article]);
-		//require('view/frontend/accueilView.php');
 
 		$lastArticle->closeCursor();
 	}
 
 	public function error(string $error_msg)
 	{
-		require('view/frontend/errorView.php');
+		RenderView::render('template.php', 'frontend/errorView.php', ['error_msg' => $error_msg]);
 	}
 
 	public function listArticles()
 	{
 		$ArticlesManager = new ArticlesManager();
 
-		$listArticles = $ArticlesManager->getArticles();
+		$queryArticles = $ArticlesManager->getArticles();
+		$listArticles=$queryArticles->fetchAll(PDO::FETCH_CLASS, 'Article');
 
-		require('view/frontend/articlesView.php');
+		RenderView::render('template.php', 'frontend/articlesView.php', ['listArticles' => $listArticles]);
 
-		$listArticles->closeCursor();
+		$queryArticles->closeCursor();
 	}
 
 	public function article()
@@ -36,17 +36,19 @@ class Frontend
 		$ArticlesManager = new ArticlesManager();
 		$CommentsManager = new CommentsManager();
 
-		$queryArticle = $ArticlesManager->getOneById($_GET['idArticle']);
-		$article = $queryArticle->fetch();
-		if (empty($article)) {
+		if ($ArticlesManager->exists($_GET['idArticle'])) {
+			$queryArticle = $ArticlesManager->getOneById($_GET['idArticle']);
+			$article = $queryArticle->fetchObject('Article');
+
+			$queryComments = $CommentsManager->getComments($_GET['idArticle']);
+			$comments=$queryComments->fetchAll(PDO::FETCH_CLASS, 'Comment');
+
+			RenderView::render('template.php', 'frontend/articleView.php', ['article' => $article, 'comments' => $comments]);
+
+			$queryComments->closeCursor();
+		} else {
 			throw new Exception('L\'article indiqué n\'existe pas.');
 		}
-
-		$comments = $CommentsManager->getComments($_GET['idArticle']);
-
-		require('view/frontend/articleView.php');
-
-		$comments->closeCursor();
 	}
 
 	public function postComment()
@@ -65,7 +67,7 @@ class Frontend
 		$CommentsManager = new CommentsManager();
 
 		$queryComment = $CommentsManager->getOneById($_GET['idComment']);
-		$comment = $queryComment->fetch();
+		$comment = $queryComment->fetchObject('Comment');
 		if (empty($comment)) {
 			throw new Exception('Le commentaire recherché n\'existe pas.');
 		}
@@ -73,10 +75,10 @@ class Frontend
 		if (isset($_POST['postReportPseudo']) && isset($_POST['postReportContent'])) {
 			//post report
 			$CommentsManager->setReport($_GET['idComment'], htmlspecialchars($_POST['postReportPseudo']),
-				htmlspecialchars($_POST['postReportContent']), $comment['nbReport']);
+				htmlspecialchars($_POST['postReportContent']), $comment->getNbReport());
 		}
 
-		require('view/frontend/reportView.php');
+		RenderView::render('template.php', 'frontend/reportView.php', ['comment' => $comment]);
 
 		$queryComment->closeCursor();
 	}	

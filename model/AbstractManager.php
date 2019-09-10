@@ -13,6 +13,23 @@ abstract class AbstractManager extends Database
 		}
 	}
 
+	public function exists(int $id)
+	{
+		if ($id > 0) {
+			$req = $this->sql(
+				'SELECT *
+				 FROM ' . static::$TABLE_NAME . '
+				 WHERE ' . static::$TABLE_PK . ' = :id',
+				[':id' => $id]);
+
+			if ($result = $req->fetch()) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
 	public function delete(int $id)
 	{
 		if($id > 0){

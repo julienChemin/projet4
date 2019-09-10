@@ -1,7 +1,5 @@
 <?php
 
-ob_start();
-
 if (isset($_POST['postReportPseudo']) && isset($_POST['postReportContent'])) {
 	//post report
 	?>
@@ -40,7 +38,7 @@ if (isset($_POST['postReportPseudo']) && isset($_POST['postReportContent'])) {
 	//display comment to report
 	//if comment's author is admin, display name in purple
 		$style ="";
-		if ($comment['authorIsAdmin']) {
+		if ($data['comment']->getAuthorIsAdmin()) {
 			$style = 'style="color:purple;"';
 		}
 	?>
@@ -48,20 +46,20 @@ if (isset($_POST['postReportPseudo']) && isset($_POST['postReportContent'])) {
 	<section id="comments" class="container">
 		<div class="comment">
 			<p class="commentAuthor"<?=$style?>>
-				<?=$comment['author']?>
+				<?=$data['comment']->getAuthor()?>
 			</p>
 
 			<p class="commentContent">
-				<?=$comment['content']?>
+				<?=$data['comment']->getContent()?>
 			</p>
 
 			<p class="commentDatePublication">
-				<?=$comment['datePublication']?>
+				<?=$data['comment']->getDatePublication()?>
 			</p>
 
 			<?php
-			if (!empty($comment['dateEdit']) && !empty($comment['authorEdit'])) {
-				echo '<p class="commentEdit"> Edité le ' . $comment['dateEdit'] . ' par ' . $comment['authorEdit'] . '</p>';
+			if (!empty($data['comment']->getDateEdit()) && !empty($data['comment']->getAuthorEdit())) {
+				echo '<p class="commentEdit"> Edité le ' . $data['comment']->getDateEdit() . ' par ' . $data['comment']->getAuthorEdit() . '</p>';
 			}
 			?>
 		</div>
@@ -69,7 +67,3 @@ if (isset($_POST['postReportPseudo']) && isset($_POST['postReportContent'])) {
 	
 	<?php
 }
-
-$content = ob_get_clean();
-
-require('view/template.php');

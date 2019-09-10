@@ -8,12 +8,15 @@ if (!isset($_SESSION['pseudo']) && isset($_COOKIE['admin'])) {
 
 function chargerClass($class)
 {
-	require 'model/' . $class . '.php';
+	if ($class === 'Backend') {
+		require 'controller/' . $class . '.php';
+	} else {
+		require 'model/' . $class . '.php';
+	}
 }
 spl_autoload_register('chargerClass');
 
-require('controller/frontend.php');
-require('controller/backend.php');
+$backend = new Backend();
 
 /*---------------------------------*/
 
@@ -22,35 +25,35 @@ try {
 		switch ($_GET['action']) {
 			case 'disconnect' :
 				//disconnect
-				disconnect();
+				$backend->disconnect();
 				break;
 			case 'add' :
 				//add article
-				add();
+				$backend->add();
 				break;
 			case 'edit' :
 				//edit articles
-				edit();
+				$backend->edit();
 				break;
 			case 'delete' :
 				//delete article
-				delete();
+				$backend->delete();
 				break;
 			case 'moderate' :
 				//moderate comments
-				moderate();
+				$backend->moderate();
 				break;
 			case 'viewReports' :
 				//moderate reports
-				viewReports();
+				$backend->viewReports();
 				break;
 			default :
 				throw new Exception('L\'action renseignée est inexistante.');
 		}
 	} else {
 		//"action" undefined -> home
-		accueilAdmin();
+		$backend->accueilAdmin();
 	}
 } catch (Exception $e) {
-	error($e->getMessage());
+	$backend->error($e->getMessage());
 }

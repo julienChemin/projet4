@@ -2,6 +2,9 @@
 
 abstract class ReportManager extends AbstractManager
 {
+	public static $TABLE_NAME = 'report';
+	public static $TABLE_PK = 'id';
+
 	public function getMostReportedComments()
 	{
 		return $this->sql('
@@ -31,7 +34,7 @@ abstract class ReportManager extends AbstractManager
 	public function deleteReport(int $idReport, int $idComment)
 	{
 		if ($idReport > 0 && $idComment > 0) {
-			if ($this->reportExists($idReport)) {
+			if ($this->exists($idReport)) {
 				//delete report
 				$this->sql('
 					DELETE FROM report
@@ -46,23 +49,6 @@ abstract class ReportManager extends AbstractManager
 				$this->setNbReport($idComment, $nbReport);
 
 				return $this;
-			}
-		}
-	}
-
-	public function reportExists(int $idReport)
-	{
-		if ($idReport > 0) {
-			$req = $this->sql('
-				SELECT *
-				FROM report
-				WHERE id = :id',
-				[':id' => $idReport]);
-
-			if ($report = $req->fetch()) {
-				return true;
-			} else {
-				return false;
 			}
 		}
 	}

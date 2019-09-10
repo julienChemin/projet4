@@ -4,11 +4,14 @@ session_start();
 
 function chargerClass($class)
 {
-	require 'model/' . $class . '.php';
+	if ($class === 'Frontend') {
+		require 'controller/' . $class . '.php';
+	} else {
+		require 'model/' . $class . '.php';
+	}
 }
 spl_autoload_register('chargerClass');
 
-//require('controller/frontend.php');
 $frontend = new Frontend();
 
 /*---------------------------------*/
@@ -53,5 +56,5 @@ try {
 		$frontend->accueil();
 	}
 } catch (Exception $e) {
-	error($e->getMessage());
+	$frontend->error($e->getMessage());
 }
