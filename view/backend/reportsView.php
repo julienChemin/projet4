@@ -1,7 +1,5 @@
 <?php
 
-ob_start();
-
 if (isset($_SESSION['pseudo'])) {
 	if (isset($_GET['idComment'])) {
 
@@ -11,7 +9,10 @@ if (isset($_SESSION['pseudo'])) {
 		?>
 		<section class="container" id="moderateReport">
 			<?php
-			if (!empty($Reports)) {
+			if (isset($data['message'])) {
+				echo '<p class="infoComment">' . $data['message'] . '</p>';
+			}
+			if (!empty($data['listReports'])) {
 				?>
 				<table class="fullWidth">
 					<caption><h2>Liste des signalements</h2></caption>
@@ -20,7 +21,7 @@ if (isset($_SESSION['pseudo'])) {
 						<th>Supprimer</th>
 					</tr>
 					<?php
-					foreach ($Reports as $report) {
+					foreach ($data['listReports'] as $report) {
 						?>
 						<tr>
 							<td>
@@ -48,7 +49,3 @@ if (isset($_SESSION['pseudo'])) {
 } else {
 	header('Location: Jean-Forteroche_admin.php');
 }
-
-$content = ob_get_clean();
-
-require('view/template.php');

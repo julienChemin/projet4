@@ -24,7 +24,7 @@ class Frontend
 		$ArticlesManager = new ArticlesManager();
 
 		$queryArticles = $ArticlesManager->getArticles();
-		$listArticles=$queryArticles->fetchAll(PDO::FETCH_CLASS, 'Article');
+		$listArticles = $queryArticles->fetchAll(PDO::FETCH_CLASS, 'Article');
 
 		RenderView::render('template.php', 'frontend/articlesView.php', ['listArticles' => $listArticles]);
 

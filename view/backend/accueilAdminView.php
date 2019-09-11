@@ -1,7 +1,5 @@
 <?php
 
-ob_start();
-
 if (isset($_SESSION['pseudo'])) {
 	//user is connected
 	?>
@@ -30,7 +28,7 @@ if (isset($_SESSION['pseudo'])) {
 		</a>
 	</section>
 
-	<p class="info"><a href="Jean-Forteroche.php?action=listArticles">Voir tout les articles</a></p>
+	<p class="info"><a href="Jean-Forteroche.php?">Accéder au site</a></p>
 
 	<?php
 } else {
@@ -83,7 +81,3 @@ if (isset($_SESSION['pseudo'])) {
 		echo '<p class="infoError">' . $message . '</p>';
 	}
 }
-
-$content = ob_get_clean();
-
-require('view/template.php');

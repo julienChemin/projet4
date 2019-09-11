@@ -4,7 +4,7 @@ session_start();
 
 function chargerClass($class)
 {
-	if ($class === 'Frontend') {
+	if ($class === 'Frontend' || $class === 'Backend') {
 		require 'controller/' . $class . '.php';
 	} else {
 		require 'model/' . $class . '.php';

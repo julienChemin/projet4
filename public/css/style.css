@@ -348,6 +348,10 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	margin-bottom: 150px;
 }
 
+#moderateReport{
+	flex-direction: column;
+}
+
 /* ------------------------ DELETE ARTICLE / COMMENT ------------------------ */	
 #formConfirmation{
 	display: flex;

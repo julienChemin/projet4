@@ -1,7 +1,5 @@
 <?php
 
-ob_start();
-
 if (isset($_SESSION['pseudo'])) {
 	
 	echo '<h1>Ajouter un article</h1>';
@@ -34,7 +32,3 @@ if (isset($_SESSION['pseudo'])) {
 } else {
 	header('Location: Jean-Forteroche_admin.php');
 }
-
-$content = ob_get_clean();
-
-require('view/template.php');

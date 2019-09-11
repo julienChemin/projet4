@@ -1,7 +1,5 @@
 <?php
 
-ob_start();
-
 if (isset($_SESSION['pseudo'])) {
 
 	if (isset($_POST['confirmation']) && isset($_POST['id'])) {
@@ -62,7 +60,3 @@ if (isset($_SESSION['pseudo'])) {
 } else {
 	header('Location: Jean-Forteroche_admin.php');
 }
-
-$content = ob_get_clean();
-
-require('view/template.php');

@@ -1,14 +1,12 @@
 <?php
 
-ob_start();
-
 if (isset($_SESSION['pseudo'])) {
 
 	echo '<h1>Editer un article</h1>';
 
 	//message
-	if (isset($message)) {
-		echo '<p class="infoComment">' . $message . '</p>';
+	if (isset($data['message'])) {
+		echo '<p class="infoComment">' . $data['message'] . '</p>';
 	}
 
 	if (isset($_GET['idArticle'])) {
@@ -19,7 +17,7 @@ if (isset($_SESSION['pseudo'])) {
 				<form method="POST" action="Jean-Forteroche_admin.php?action=edit">
 					<p>
 						<label for="editArticleTitle">Titre de l'article</label>
-						<input type="text" name="editArticleTitle" id="editArticleTitle" value="<?=$article['title']?>" required="">
+						<input type="text" name="editArticleTitle" id="editArticleTitle" value="<?=$data['article']->getTitle()?>" required="">
 					</p>
 
 					<p>
@@ -33,7 +31,7 @@ if (isset($_SESSION['pseudo'])) {
 				</form>
 
 				<div id="content">
-					<?=$article['content']?>
+					<?=$data['article']->getContent()?>
 				</div>
 			</section>
 
@@ -55,27 +53,27 @@ if (isset($_SESSION['pseudo'])) {
 				</tr>
 			
 				<?php
-				foreach ($Articles as $article) {
+				foreach ($data['listArticles'] as $article) {
 					?>
 					<tr>
 						<td>
-							<?=$article['title']?>
+							<?=$article->getTitle()?>
 						</td>
 
 						<td>
-							<a href="Jean-Forteroche.php?action=article&amp;idArticle=<?=$article['id']?>">
+							<a href="Jean-Forteroche.php?action=article&amp;idArticle=<?=$article->getId()?>">
 								<i class="fas fa-eye"></i>
 							</a>
 						</td>
 
 						<td>
-							<a href="Jean-Forteroche_admin.php?action=edit&amp;idArticle=<?=$article['id']?>">
+							<a href="Jean-Forteroche_admin.php?action=edit&amp;idArticle=<?=$article->getId()?>">
 								<i class="fas fa-pencil-alt"></i>
 							</a>
 						</td>
 
 						<td>
-							<a href="Jean-Forteroche_admin.php?action=delete&amp;idArticle=<?=$article['id']?>">
+							<a href="Jean-Forteroche_admin.php?action=delete&amp;idArticle=<?=$article->getId()?>">
 								<i class="fas fa-trash-alt"></i>
 							</a>
 						</td>
@@ -91,7 +89,3 @@ if (isset($_SESSION['pseudo'])) {
 } else {
 	header('Location: Jean-Forteroche_admin.php');
 }
-
-$content = ob_get_clean();
-
-require('view/template.php');

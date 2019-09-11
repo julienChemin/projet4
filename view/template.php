@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<?php 
-		if (isset($_SESSION['pseudo'])) {
+		if (isset(Backend::$isConnected) && Backend::$isConnected) {
 			require('backend/navbar.php');
 		} else {
 			require('frontend/navbar.php');

@@ -2,6 +2,20 @@
 
 class Backend
 {
+	public static $isConnected = false;
+
+	public function __construct()
+	{
+		if (isset($_SESSION['pseudo'])) {
+			static::$isConnected = true;
+		} elseif (isset($_COOKIE['admin'])) {
+			$_SESSION['pseudo'] = $_COOKIE['admin'];
+			static::$isConnected = true;
+		} else {
+			header('Location: Jean-Forteroche_admin.php');
+		}
+	}
+
 	function accueilAdmin()
 	{
 		//if user is not connected and try to connect
@@ -12,7 +26,7 @@ class Backend
 			$passwordIsOk = $UserManager->checkPassword($_POST['postConnectPseudo'], $_POST['postConnectPassword']);
 		}
 
-		require('view/backend/accueilAdminView.php');
+		RenderView::render('template.php', 'backend/accueilAdminView.php');
 
 		//login and password is ok, redirect to admin_home
 		if (isset($_POST['postConnectPseudo']) && isset($_POST['postConnectPassword'])) {
@@ -45,7 +59,7 @@ class Backend
 				$message = 'L\'article a bien été publié.';
 		}
 
-		require('view/backend/addView.php');
+		RenderView::render('template.php', 'backend/addView.php');
 	}
 
 	function edit()
@@ -66,17 +80,23 @@ class Backend
 		if (isset($_GET['idArticle']) && $_GET['idArticle'] > 0) {
 			//display one article
 			$Article = $ArticlesManager->getOneById($_GET['idArticle']);
-			$article = $Article->fetch();
+			$article = $Article->fetchObject('Article');
+
+			RenderView::render('template.php', 'backend/editView.php', ['article' => $article]);
+
 			$Article->closeCursor();
 		} else {
 			//display list of articles
-			$Articles = $ArticlesManager->getArticles();
-		}
+			$queryArticles = $ArticlesManager->getArticles();
+			$listArticles = $queryArticles->fetchAll(PDO::FETCH_CLASS, 'Article');
 
-		require('view/backend/editView.php');
+			if (isset($message)) {
+				RenderView::render('template.php', 'backend/editView.php', ['listArticles' => $listArticles, 'message' => $message]);
+			} else {
+				RenderView::render('template.php', 'backend/editView.php', ['listArticles' => $listArticles]);
+			}
 
-		if (!empty($Articles)) {
-			$Articles->closeCursor();
+			$queryArticles->closeCursor();
 		}
 	}
 
@@ -89,15 +109,16 @@ class Backend
 
 				//delete article
 				$ArticlesManager->delete($_POST['id']);
-				$Comments = $CommentsManager->getComments($_POST['id']);
+				$queryComments = $CommentsManager->getComments($_POST['id']);
+				$comments = $queryComments->fetchAll(PDO::FETCH_CLASS, 'Comment');
 
-				if ($comment = $Comments->fetch()) {
-					do {
-						$CommentsManager->delete($comment['id']);
-						$CommentsManager->deleteReportsFromComment($comment['id']);
-					} while ($comment = $Comments->fetch());
+				if (!empty($comments)) {
+					foreach ($comments as $comment) {
+						$CommentsManager->delete($comment->getId());
+						$CommentsManager->deleteReportsFromComment($comment->getId());
+					}
 				}
-				$Comments->closeCursor();
+				$queryComments->closeCursor();
 			} elseif ($_POST['confirmation'] === 'comment') {
 				$CommentsManager = new CommentsManager();
 
@@ -106,8 +127,8 @@ class Backend
 				$CommentsManager->deleteReportsFromComment($_POST['id']);
 			}
 		}
-
-		require('view/backend/deleteView.php');
+		
+		RenderView::render('template.php', 'backend/deleteView.php');
 	}
 
 	function moderate()
@@ -122,28 +143,33 @@ class Backend
 				'content' => $_POST['tinyMCEtextarea'],
 				'id' => $_POST['idComment']]));
 
+			//delete reports from edited comment
 			$CommentsManager->deleteReportsFromComment($_POST['idComment']);
 			$CommentsManager->setNbReport($_POST['idComment'], 0);
 
 			$message = 'Le commentaire a bien été édité.';
 		}
 
-		if (isset($_GET['idComment'])) {
-			if ($_GET['idComment'] > 0) {
-				$Comment = $CommentsManager->getOneById($_GET['idComment']);
-				$comment = $Comment->fetch();
-			}
-		} else {
-			$Comments = $CommentsManager->getMostReportedComments();
-		}
+		if (isset($_GET['idComment']) && $_GET['idComment'] > 0) {
+			//display comment to edit
+			$Comment = $CommentsManager->getOneById($_GET['idComment']);
+			$comment = $Comment->fetchObject('Comment');
 
-		require('view/backend/moderateView.php');
+			RenderView::render('template.php', 'backend/moderateView.php', ['comment' => $comment]);
 
-		if (!empty($Comment)) {
 			$Comment->closeCursor();
-		}
-		if (!empty($Comments)) {
-			$Comments->closeCursor();
+		} else {
+			//display list of reported comment
+			$queryReportedComments = $CommentsManager->getMostReportedComments();
+			$listReportedComments = $queryReportedComments->fetchAll(PDO::FETCH_CLASS, 'Comment');
+
+			if (isset($message)) {
+				RenderView::render('template.php', 'backend/moderateView.php', ['listReportedComments' => $listReportedComments, 'message' => $message]);
+			} else {
+				RenderView::render('template.php', 'backend/moderateView.php', ['listReportedComments' => $listReportedComments]);
+			}
+
+			$queryReportedComments->closeCursor();
 		}
 	}
 
@@ -156,18 +182,21 @@ class Backend
 				if ($_GET['idReport'] > 0) {
 					//delete report
 					$CommentsManager->deleteReport($_GET['idReport'], $_GET['idComment']);
+					$message = 'Le signalement a bien été supprimé';
 				} else {
 					throw new Exception('Le signalement spécifié est introuvable');
 				}
 			}
 
-			$Reports = $CommentsManager->getReportsFromComment($_GET['idComment']);
+			$listReports = $CommentsManager->getReportsFromComment($_GET['idComment']);
 		}
 
-		require('view/backend/reportsView.php');
-
-		if (!empty($Reports)) {
-			$Reports->closeCursor();
+		if (isset($message)) {
+			RenderView::render('template.php', 'backend/reportsView.php', ['listReports' => $listReports, 'message' => $message]);
+		} else {
+			RenderView::render('template.php', 'backend/reportsView.php', ['listReports' => $listReports]);
 		}
+
+		$listReports->closeCursor();
 	}
 }

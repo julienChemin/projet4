@@ -2,13 +2,9 @@
 
 session_start();
 
-if (!isset($_SESSION['pseudo']) && isset($_COOKIE['admin'])) {
-	$_SESSION['pseudo'] = $_COOKIE['admin'];
-}
-
 function chargerClass($class)
 {
-	if ($class === 'Backend') {
+	if ($class === 'Backend' || $class === 'Frontend') {
 		require 'controller/' . $class . '.php';
 	} else {
 		require 'model/' . $class . '.php';
