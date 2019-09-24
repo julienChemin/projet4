@@ -1,5 +1,7 @@
 <?php
 
+namespace Chemin\Blog\Model;
+
 class Comment
 {
 	private $id,

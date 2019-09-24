@@ -96,6 +96,7 @@ input[type="submit"]{
 	color: #004c8c;
 
 	font-weight: bolder;
+	font-size: 1em;
 
 	border: solid 2px #74bbe4;
 	border-radius: 10px;
@@ -106,7 +107,7 @@ input[type="submit"]{
 /* ------------------------ TABLE ------------------------ */
 table{
 	border-collapse: collapse;
-	border:double 5px #74bbe4;
+	border: solid 2px #74bbe4;
 	background-color: white;
 }
 th, td{
@@ -144,7 +145,8 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 /* ------------------------ BLOC INFO ------------------------ */
 .info{
 	text-align: right;
-	margin: 30px;
+	margin: 30px 0;
+	width: 90%;
 }
 .infoComment{
 	text-align: center;
@@ -173,6 +175,7 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 }
 #navbar > div > span:nth-child(1){
 	font-size: 1.5em;
+	margin-left: 10px;
 }
 #navbar ul{
 	list-style: none;
@@ -180,6 +183,8 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+
+	margin-right: 10px;
 }
 #navbar li{
 	margin: 0 15px;
@@ -193,10 +198,11 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 /* ------------------------ HERO ------------------------ */
 #heroImg{
 	background-image: url("../images/alaska.png");
+	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
 
-	height: 400px;
+	height: 500px;
 }
 #citation{
 	display: flex;
@@ -204,7 +210,6 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	align-items: center;
 
 	margin: 30px 0;
-	padding: 10px;
 }
 #hero cite{
 	text-align: center;
@@ -220,6 +225,7 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 }
 #articles img{
 	width: 100%;
+	height: 100%;
 }
 .article{
 	width: 90%;
@@ -286,6 +292,19 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 
 /* --------------------------------------------------------------- ADMIN ---------------------------------------------------- */
 
+/* ------------------------ LOGIN FORM ------------------------ */
+form > div{
+	width: 300px;
+	margin: auto;
+
+	display: flex;
+	flex-direction: column;
+}
+form > div > p:nth-child(1), form > div > p:nth-child(2){
+	display: flex;
+	justify-content: space-between;
+}
+
 /* ------------------------ HOME ------------------------ */
 #accueilAdmin{
 	display: flex;
@@ -326,9 +345,6 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 #formAddEditArticle input[type='text']{
 	width: 50%;
 }
-#formAddEditArticle input[type='submit']{
-	font-size: 1.2em;
-}
 #formAddEditArticle form > p:last-child{/*input submit*/
 	text-align: right;
 }
@@ -368,7 +384,16 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 ====================================================================================================================================*/
 
 @media all and (min-width:992px) and (max-width:1200px){
-	
+	.container{
+		max-width: 992px;
+	}
+
+	/* --------------------------------------------------------------- ADMIN ---------------------------------------------------- */
+
+	/* ------------------------ LOGIN FORM ------------------------ */
+	form > div{
+		width: 30%;
+	}
 }
 
 /*====================================================================================================================================
@@ -376,7 +401,26 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 ====================================================================================================================================*/
 
 @media all and (min-width:768px) and (max-width:992px){
+	body{
+		font-size: 1.1em;
+	}
+	.container{
+		max-width: 768px;
+	}
+	h1{
+		font-size: 2.6em;
+	}
+	h2{
+		font-size: 1.8em;
+	}
+	h3{
+		font-size: 1.3em;
+	}
 
+	/* ------------------------ HERO ------------------------ */
+	#heroImg{
+		height: 400px;
+	}
 }
 
 /*====================================================================================================================================
@@ -384,7 +428,40 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 ====================================================================================================================================*/
 
 @media all and (min-width:600px) and (max-width:768px){
+	body{
+		font-size: 1em;
+	}
+	.container{
+		max-width: 600px;
+	}
+	h1{
+		font-size: 2.5em;
+	}
+	h2{
+		font-size: 1.7em;
+	}
+	h3{
+		font-size: 1.2em;
+	}
 
+	/* ------------------------ NAVBAR ------------------------ */
+	#navbar{
+		height: 80px;
+	}
+	#navbar li {
+   		margin: 0 10px;
+   	}
+   	#navbar i {
+   		font-size: 1.1em;
+   	}
+
+	/* ------------------------ HERO ------------------------ */
+	#heroImg{
+		height: 350px;
+
+		background-attachment: initial;
+		background-size: 100%;
+	}
 }
 
 /*====================================================================================================================================
@@ -392,5 +469,56 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 ====================================================================================================================================*/
 
 @media all and (max-width:600px){
-	
+	body{
+		font-size: 0.7em;
+	}
+	.container{
+		max-width: 90%;
+	}
+	h1{
+		font-size: 2.3em;
+	}
+	h2{
+		font-size: 1.5em;
+	}
+	h3{
+		font-size: 0.9em;
+	}
+
+	/* ------------------------ TABLE ------------------------ */
+	th, td{
+		padding: 5px;
+	}
+
+	/* ------------------------ BLOC INFO ------------------------ */
+	.info{
+	    margin: 15px 0;
+	}
+	/* ------------------------ NAVBAR ------------------------ */
+	#navbar{
+		height: 60px;
+	}
+	#navbar li {
+   		margin: 0 5px;
+   	}
+   	#navbar i {
+   		font-size: 1em;
+   	}
+
+	/* ------------------------ HERO ------------------------ */
+	#heroImg{
+		height: 150px;
+
+		background-attachment: initial;
+		background-size: 100%;
+	}
+
+	/* ------------------------ HOME ------------------------ */
+	#accueilAdmin > a{
+		max-width: 20%;
+		height: 100px;
+	}
+	#accueilAdmin > i{
+		font-size: 2em;
+	}
 }

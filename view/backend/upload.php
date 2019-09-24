@@ -1,6 +1,6 @@
 <?php
 
-$accepted_origins = array("http://localhost", "https://julienchemin.fr");
+$accepted_origins = array("https://julienchemin.fr", "http://julienchemin.fr", "julienchemin.fr");
 
 $imageFolder = "../../public/images/";
 $relative_path = "public/images/";

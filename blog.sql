@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 16 août 2019 à 12:48
+-- Généré le :  lun. 23 sep. 2019 à 20:29
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -32,25 +32,22 @@ DROP TABLE IF EXISTS `articles`;
 CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `author` varchar(100) NOT NULL,
-  `author_edit` varchar(100) DEFAULT NULL,
+  `authorEdit` varchar(100) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
-  `date_publication` datetime NOT NULL,
-  `date_edit` datetime DEFAULT NULL,
+  `datePublication` datetime NOT NULL,
+  `dateEdit` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `articles`
 --
 
-INSERT INTO `articles` (`id`, `author`, `author_edit`, `title`, `content`, `date_publication`, `date_edit`) VALUES
-(1, 'julien', NULL, 'Premier title', 'Voici un premier article', '2019-08-01 15:05:16', NULL),
-(4, 'julien', NULL, 'Deuxieme title', 'Voici un deuxieme article', '2019-08-02 00:45:32', NULL),
-(5, 'julien', NULL, 'troisieme title', 'Voici un troisieme article', '2019-08-02 00:46:29', NULL),
-(33, 'Jean-Forteroche', NULL, 'dgf', '<p><img src=\"../../public/images/mceclip0.jpg\" /></p>', '2019-08-16 13:18:14', NULL),
-(7, 'julien', 'Jean-Forteroche', '5eme article', '<p>voici un article un peu longqui l<strong>ogiquement de</strong>vrait faire plus de 30 carac. enfin bon, au cas ou je rajoute du blabla et bon bah la ca va quoi sans dec\' ont est forcement a plus de 30 carac !!..</p>', '2019-08-08 14:20:00', '2019-08-16 13:40:08'),
-(34, 'Jean-Forteroche', NULL, 'fh', '<p><img src=\"http://localhost/blog_Jean-Forteroche/public/images/mceclip0.jpg\" /></p>', '2019-08-16 13:32:28', NULL);
+INSERT INTO `articles` (`id`, `author`, `authorEdit`, `title`, `content`, `datePublication`, `dateEdit`) VALUES
+(36, 'Jean-Forteroche', 'Jean-Forteroche', 'Eternelle jeunesse', '<p>&nbsp;</p>\r\n<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://localhost/blog_Jean-Forteroche/public/images/1.jpg\" width=\"937\" height=\"626\" /></p>\r\n<p>&nbsp;</p>\r\n<p>Les mousses &eacute;taient au-del&agrave; de toute description : si belles, si fra&icirc;ches, d\'un vert si gai, et toutes tellement basses, calmes et silencieuses alors que le vent soufflait violemment sur elles, tandis que s\'abattait la pluie lourde, Jamais, probablement, aucune particule de poussi&egrave;re n\'avait touch&eacute; les feuilles ou les extr&eacute;mit&eacute;s de toutes ces plantes b&eacute;nies.</p>\r\n<p>Et comme les bords rouges des corolles de de cladonias paraissaient brillantes &agrave; c&ocirc;t&eacute; d\'elles, ou les fruits du cornouiller nain ! Les baies mouill&eacute;es &eacute;tincelaient comme des pierres pr&eacute;cieuses - les gouttes de cristal des myrtilles sur les buissons aux fleurs p&acirc;les, m&ecirc;l&eacute;es aux grappes de perles des m&ucirc;res rouges et jaunes, et les gouttes de pluie elles-m&ecirc;mes ressemblaient &agrave; des baies, qui d&eacute;coraient les arches d\'herbes et de laiches entrelac&eacute;es sur le bord des mares, chacune comme un miroir qui aurait refl&eacute;t&eacute; le paysage tout entier.</p>\r\n<p>Les mousses &eacute;taient au-del&agrave; de toute description : si belles, si fra&icirc;ches, d\'un vert si gai, et toutes tellement basses, calmes et silencieuses alors que le vent soufflait violemment sur elles, tandis que s\'abattait la pluie lourde, Jamais, probablement, aucune particule de poussi&egrave;re n\'avait touch&eacute; les feuilles ou les extr&eacute;mit&eacute;s de toutes ces plantes b&eacute;nies.</p>\r\n<p>Et comme les bords rouges des corolles de de cladonias paraissaient brillantes &agrave; c&ocirc;t&eacute; d\'elles, ou les fruits du cornouiller nain ! Les baies mouill&eacute;es &eacute;tincelaient comme des pierres pr&eacute;cieuses - les gouttes de cristal des myrtilles sur les buissons aux fleurs p&acirc;les, m&ecirc;l&eacute;es aux grappes de perles des m&ucirc;res rouges et jaunes, et les gouttes de pluie elles-m&ecirc;mes ressemblaient &agrave; des baies, qui d&eacute;coraient les arches d\'herbes et de laiches entrelac&eacute;es sur le bord des mares, chacune comme un miroir qui aurait refl&eacute;t&eacute; le paysage tout entier.</p>\r\n<p>Les mousses &eacute;taient au-del&agrave; de toute description : si belles, si fra&icirc;ches, d\'un vert si gai, et toutes tellement basses, calmes et silencieuses alors que le vent soufflait violemment sur elles, tandis que s\'abattait la pluie lourde, Jamais, probablement, aucune particule de poussi&egrave;re n\'avait touch&eacute; les feuilles ou les extr&eacute;mit&eacute;s de toutes ces plantes b&eacute;nies.</p>\r\n<p>Et comme les bords rouges des corolles de de cladonias paraissaient brillantes &agrave; c&ocirc;t&eacute; d\'elles, ou les fruits du cornouiller nain ! Les baies mouill&eacute;es &eacute;tincelaient comme des pierres pr&eacute;cieuses - les gouttes de cristal des myrtilles sur les buissons aux fleurs p&acirc;les, m&ecirc;l&eacute;es aux grappes de perles des m&ucirc;res rouges et jaunes, et les gouttes de pluie elles-m&ecirc;mes ressemblaient &agrave; des baies, qui d&eacute;coraient les arches d\'herbes et de laiches entrelac&eacute;es sur le bord des mares, chacune comme un miroir qui aurait refl&eacute;t&eacute; le paysage tout entier.</p>', '2019-08-21 23:52:59', '2019-08-22 17:45:00'),
+(37, 'Jean-Forteroche', 'Jean-Forteroche', 'Une nuit fleurie', '<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://localhost/blog_Jean-Forteroche/public/images/2.jpg\" width=\"991\" height=\"708\" /></p>\r\n<p>&nbsp;</p>\r\n<p style=\"text-align: left;\">Comme la nuit approchait, je redescendis en courant le long des pentes fleuries, revigor&eacute;. Le soleil couchant embrasait les nuages. On aurait dit que le monde entier venait de na&icirc;tre une seconde fois.</p>\r\n<p style=\"text-align: left;\">Chaque chose, m&ecirc;me la plus banale, paraissait &eacute;clair&eacute;e d\'un lumi&egrave;re nouvelle. Chaque plante, de la plus petite fleur aux plus grands arbres, semblait m&ecirc;ler sa joie &agrave; la mienne, tandis que chaque d&eacute;tail de la montagne, chacun de ses rochers, &eacute;pousaient mon all&eacute;gresse, comme s\'ils avaient su lire sur mon visage.</p>\r\n<p style=\"text-align: left;\">Comme la nuit approchait, je redescendis en courant le long des pentes fleuries, revigor&eacute;. Le soleil couchant embrasait les nuages. On aurait dit que le monde entier venait de na&icirc;tre une seconde fois.</p>\r\n<p style=\"text-align: left;\">Chaque chose, m&ecirc;me la plus banale, paraissait &eacute;clair&eacute;e d\'un lumi&egrave;re nouvelle. Chaque plante, de la plus petite fleur aux plus grands arbres, semblait m&ecirc;ler sa joie &agrave; la mienne, tandis que chaque d&eacute;tail de la montagne, chacun de ses rochers, &eacute;pousaient mon all&eacute;gresse, comme s\'ils avaient su lire sur mon visage.</p>\r\n<p style=\"text-align: left;\">Comme la nuit approchait, je redescendis en courant le long des pentes fleuries, revigor&eacute;. Le soleil couchant embrasait les nuages. On aurait dit que le monde entier venait de na&icirc;tre une seconde fois.</p>\r\n<p style=\"text-align: left;\">Chaque chose, m&ecirc;me la plus banale, paraissait &eacute;clair&eacute;e d\'un lumi&egrave;re nouvelle. Chaque plante, de la plus petite fleur aux plus grands arbres, semblait m&ecirc;ler sa joie &agrave; la mienne, tandis que chaque d&eacute;tail de la montagne, chacun de ses rochers, &eacute;pousaient mon all&eacute;gresse, comme s\'ils avaient su lire sur mon visage.</p>', '2019-08-22 00:44:24', '2019-08-22 17:44:53'),
+(38, 'Jean-Forteroche', 'Jean-Forteroche', 'Des aigles, des lions de mer et des baleines', '<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://localhost/blog_Jean-Forteroche/public/images/3.jpg\" /></p>\r\n<p>&nbsp;</p>\r\n<p>La baie du Prince-William, dans le Golfe d&rsquo;Alaska, est le th&eacute;&acirc;tre d&rsquo;innombrables spectacles naturels. Les glaciers se parent de leur plus beau bleu et les bateaux vont et viennent, louvoyant entre des masses de glace aux versants abrupts.</p>\r\n<p>&Ccedil;&agrave; et l&agrave; nous saluent des aigles, des lions de mer et avec un peu de chance, des baleines &agrave; bosse. Les excursions en bateau dans le parc national de Kenai Fjords depuis Seward valent aussi le d&eacute;tour. Au menu : observation des baleines, randonn&eacute;es glaciaires et excursions sur Fox Island.&nbsp;</p>\r\n<p>La baie du Prince-William, dans le Golfe d&rsquo;Alaska, est le th&eacute;&acirc;tre d&rsquo;innombrables spectacles naturels. Les glaciers se parent de leur plus beau bleu et les bateaux vont et viennent, louvoyant entre des masses de glace aux versants abrupts.</p>\r\n<p>&Ccedil;&agrave; et l&agrave; nous saluent des aigles, des lions de mer et avec un peu de chance, des baleines &agrave; bosse. Les excursions en bateau dans le parc national de Kenai Fjords depuis Seward valent aussi le d&eacute;tour. Au menu : observation des baleines, randonn&eacute;es glaciaires et excursions sur Fox Island.&nbsp;</p>\r\n<p>La baie du Prince-William, dans le Golfe d&rsquo;Alaska, est le th&eacute;&acirc;tre d&rsquo;innombrables spectacles naturels. Les glaciers se parent de leur plus beau bleu et les bateaux vont et viennent, louvoyant entre des masses de glace aux versants abrupts.</p>\r\n<p>&Ccedil;&agrave; et l&agrave; nous saluent des aigles, des lions de mer et avec un peu de chance, des baleines &agrave; bosse. Les excursions en bateau dans le parc national de Kenai Fjords depuis Seward valent aussi le d&eacute;tour. Au menu : observation des baleines, randonn&eacute;es glaciaires et excursions sur Fox Island.&nbsp;</p>', '2019-08-22 00:51:27', '2019-09-04 10:54:25');
 
 -- --------------------------------------------------------
 
@@ -61,34 +58,28 @@ INSERT INTO `articles` (`id`, `author`, `author_edit`, `title`, `content`, `date
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_article` int(11) NOT NULL,
+  `idArticle` int(11) NOT NULL,
   `content` text NOT NULL,
   `author` varchar(255) NOT NULL,
-  `author_is_admin` tinyint(1) NOT NULL DEFAULT '0',
-  `date_publication` datetime NOT NULL,
-  `author_edit` varchar(255) DEFAULT NULL,
-  `date_edit` datetime DEFAULT NULL,
-  `nb_report` int(11) NOT NULL DEFAULT '0',
+  `authorIsAdmin` tinyint(1) NOT NULL DEFAULT '0',
+  `datePublication` datetime NOT NULL,
+  `authorEdit` varchar(255) DEFAULT NULL,
+  `dateEdit` datetime DEFAULT NULL,
+  `nbReport` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `comments`
 --
 
-INSERT INTO `comments` (`id`, `id_article`, `content`, `author`, `author_is_admin`, `date_publication`, `author_edit`, `date_edit`, `nb_report`) VALUES
-(1, 7, 'premier test pour poster un commentaire.', 'juju', 0, '2019-08-08 21:20:19', NULL, NULL, 6),
-(2, 7, 'deuxieme test', 'juju', 0, '2019-08-08 21:39:19', NULL, NULL, 1),
-(3, 5, 'faut croire que ca fonctionne', 'juju', 0, '2019-08-08 21:56:47', NULL, NULL, 0),
-(4, 1, 'un p\'ti test', 'lolita', 0, '2019-08-09 11:40:08', NULL, NULL, 0),
-(5, 5, 'ku', 'jul ', 0, '2019-08-09 13:29:21', NULL, NULL, 0),
-(6, 5, 'lu\r\n<p>edit : le pseudo ne doit pas contenir de balise html.</p>', 'jul', 0, '2019-08-09 13:29:33', 'Jean-Forteroche', '2019-08-16 11:43:42', 0),
-(7, 5, '&lt;strong&gt; jul &lt;/strong&gt;', '&lt;strong&gt; jul &lt;/strong&gt;', 0, '2019-08-09 13:29:44', NULL, NULL, 0),
-(8, 7, 'i', 'jul ', 0, '2019-08-11 18:52:19', NULL, NULL, 1),
-(9, 7, 'k', '&lt;strong&gt; jul &lt;/strong&gt;', 0, '2019-08-12 18:19:51', NULL, NULL, 0),
-(10, 7, 'test', 'c ladmin', 0, '2019-08-13 16:30:46', NULL, NULL, 0),
-(11, 7, 're-test', 're ladmin', 1, '2019-08-13 16:32:29', NULL, NULL, 0),
-(12, 7, 'ki', 'jul ', 0, '2019-08-13 17:06:47', NULL, NULL, 1);
+INSERT INTO `comments` (`id`, `idArticle`, `content`, `author`, `authorIsAdmin`, `datePublication`, `authorEdit`, `dateEdit`, `nbReport`) VALUES
+(21, 36, 'Magnifique !', 'Léa', 0, '2019-08-22 18:02:43', NULL, NULL, 0),
+(22, 36, 'A quand la suite !', 'jules', 0, '2019-08-22 18:03:38', NULL, NULL, 0),
+(23, 38, 'J\'ai été en Alaska aussi, c\'est cool !', 'Robin', 0, '2019-08-22 18:06:32', NULL, NULL, 0),
+(24, 38, 'blblblbBLBLBLlbLBlB', 'Mika', 0, '2019-08-22 18:09:45', NULL, NULL, 2),
+(25, 38, '<p>Super, quand sort le prochain chapitre ?</p>', 'Léa', 0, '2019-08-22 18:15:45', 'Jean-Forteroche', '2019-09-04 11:52:36', 0),
+(26, 38, 'Je publie un chapitre chaque semaines, le prochain sort bientot !', 'Jean Forteroche', 1, '2019-08-22 18:20:07', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -99,31 +90,20 @@ INSERT INTO `comments` (`id`, `id_article`, `content`, `author`, `author_is_admi
 DROP TABLE IF EXISTS `report`;
 CREATE TABLE IF NOT EXISTS `report` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_reported_comment` int(11) NOT NULL,
+  `idReportedComment` int(11) NOT NULL,
   `author` varchar(255) NOT NULL,
   `content` text NOT NULL,
-  `date_report` datetime NOT NULL,
+  `dateReport` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `report`
 --
 
-INSERT INTO `report` (`id`, `id_reported_comment`, `author`, `content`, `date_report`) VALUES
-(1, 6, 'jul', 'c\'est mon commentaire, j\'ai fail sur la balise strong.', '2019-08-09 21:16:00'),
-(2, 6, 'julien', 'message &lt;strong&gt;chelou&lt;/strong&gt;.', '2019-08-09 21:18:13'),
-(3, 6, 'julien', 'message &lt;strong&gt;chelou&lt;/strong&gt;.', '2019-08-09 21:18:57'),
-(4, 6, 'julien', 'message &lt;strong&gt;chelou&lt;/strong&gt;.', '2019-08-09 21:21:10'),
-(5, 1, 'jul', 'proute', '2019-08-09 21:28:34'),
-(6, 1, 'jul', 'proute', '2019-08-09 21:29:44'),
-(7, 1, 'jul', 'proute', '2019-08-09 21:29:46'),
-(8, 1, 'jul', 'proute', '2019-08-09 21:29:47'),
-(9, 1, 'jul', 'proute', '2019-08-09 21:29:51'),
-(10, 1, 'jul', 'proute', '2019-08-09 21:29:53'),
-(11, 2, 'jul', 'nul', '2019-08-10 13:24:11'),
-(12, 8, 'jul', 'nul', '2019-08-11 18:56:43'),
-(13, 12, 'jul', 'c nul', '2019-08-16 14:11:50');
+INSERT INTO `report` (`id`, `idReportedComment`, `author`, `content`, `dateReport`) VALUES
+(32, 24, 'Léa', 'message inutile, c\'est juste du spam.', '2019-08-22 18:10:23'),
+(33, 24, 'julien', 'spam.', '2019-08-22 18:12:58');
 
 -- --------------------------------------------------------
 

@@ -1,5 +1,9 @@
 <?php
 
+namespace Chemin\Blog\Model;
+
+use Chemin\Blog\Model\Database;
+
 class UserManager extends Database
 {
 	public function getUser(string $pseudo)

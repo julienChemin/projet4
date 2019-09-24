@@ -1,5 +1,7 @@
 <?php
 
+namespace Chemin\Blog\Model;
+
 class Backend
 {
 	public static $isConnected = false;
@@ -12,11 +14,13 @@ class Backend
 			$_SESSION['pseudo'] = $_COOKIE['admin'];
 			static::$isConnected = true;
 		} else {
-			header('Location: Jean-Forteroche_admin.php');
+			if (isset($_GET['action'])) {
+				header('Location: Jean-Forteroche_admin.php');
+			}
 		}
 	}
 
-	function accueilAdmin()
+	public function accueilAdmin()
 	{
 		//if user is not connected and try to connect
 		if (isset($_POST['postConnectPseudo']) && isset($_POST['postConnectPassword'])) {
@@ -24,15 +28,27 @@ class Backend
 
 			$userExist = $UserManager->exists($_POST['postConnectPseudo']);
 			$passwordIsOk = $UserManager->checkPassword($_POST['postConnectPseudo'], $_POST['postConnectPassword']);
+
+			if ($userExist) {
+				if ($passwordIsOk) {
+					if (isset($_POST['stayConnect'])) {
+						//if user want to stay connect
+						setcookie('admin', $_POST['postConnectPseudo'], time()+(365*24*3600), null, null, false, true);
+					}
+					$_SESSION['pseudo'] = $_POST['postConnectPseudo'];
+					header('Location: Jean-Forteroche_admin.php');
+				} else {
+					$message = 'Le mot de passe est incorrecte';
+				}
+			} else {
+				$message = 'L\'identifiant est incorrecte';
+			}
 		}
 
-		RenderView::render('template.php', 'backend/accueilAdminView.php');
-
-		//login and password is ok, redirect to admin_home
-		if (isset($_POST['postConnectPseudo']) && isset($_POST['postConnectPassword'])) {
-			if ($userExist && $passwordIsOk) {
-				header('Location: Jean-Forteroche_admin.php');
-			}
+		if (isset($message)) {
+			RenderView::render('template.php', 'backend/accueilAdminView.php', ['message' => $message]);
+		} else {
+			RenderView::render('template.php', 'backend/accueilAdminView.php');
 		}
 	}
 
@@ -41,28 +57,31 @@ class Backend
 		RenderView::render('template.php', 'frontend/errorView.php', ['error_msg' => $error_msg]);
 	}
 
-	function disconnect()
+	public function disconnect()
 	{
 		require('view/backend/disconnect.php');
 
 		header('Location: Jean-Forteroche_admin.php');
 	}
 
-	function add()
+	public function add()
 	{
 		$ArticlesManager = new ArticlesManager();
 
 		if (isset($_POST['newArticleTitle']) && isset($_POST['tinyMCEtextarea'])) {
 			//add article
 			$ArticlesManager->set(new Article([
-				'author' => 'Jean-Forteroche', 'title' => $_POST['newArticleTitle'], 'content' => $_POST['tinyMCEtextarea']]));
-				$message = 'L\'article a bien été publié.';
+				'author' => 'Jean-Forteroche',
+				'title' => $_POST['newArticleTitle'],
+				'content' => $_POST['tinyMCEtextarea']]));
+
+			$message = 'L\'article a bien été publié.';
 		}
 
 		RenderView::render('template.php', 'backend/addView.php');
 	}
 
-	function edit()
+	public function edit()
 	{
 		$ArticlesManager = new ArticlesManager();
 
@@ -79,28 +98,22 @@ class Backend
 
 		if (isset($_GET['idArticle']) && $_GET['idArticle'] > 0) {
 			//display one article
-			$Article = $ArticlesManager->getOneById($_GET['idArticle']);
-			$article = $Article->fetchObject('Article');
+			$article = $ArticlesManager->getOneById($_GET['idArticle']);
 
 			RenderView::render('template.php', 'backend/editView.php', ['article' => $article]);
-
-			$Article->closeCursor();
 		} else {
 			//display list of articles
-			$queryArticles = $ArticlesManager->getArticles();
-			$listArticles = $queryArticles->fetchAll(PDO::FETCH_CLASS, 'Article');
+			$listArticles = $ArticlesManager->getArticles();
 
 			if (isset($message)) {
 				RenderView::render('template.php', 'backend/editView.php', ['listArticles' => $listArticles, 'message' => $message]);
 			} else {
 				RenderView::render('template.php', 'backend/editView.php', ['listArticles' => $listArticles]);
 			}
-
-			$queryArticles->closeCursor();
 		}
 	}
 
-	function delete()
+	public function delete()
 	{
 		if (isset($_POST['confirmation']) && isset($_POST['id'])) {
 			if ($_POST['confirmation'] === 'article') {
@@ -109,8 +122,7 @@ class Backend
 
 				//delete article
 				$ArticlesManager->delete($_POST['id']);
-				$queryComments = $CommentsManager->getComments($_POST['id']);
-				$comments = $queryComments->fetchAll(PDO::FETCH_CLASS, 'Comment');
+				$comments = $CommentsManager->getComments($_POST['id']);
 
 				if (!empty($comments)) {
 					foreach ($comments as $comment) {
@@ -118,7 +130,6 @@ class Backend
 						$CommentsManager->deleteReportsFromComment($comment->getId());
 					}
 				}
-				$queryComments->closeCursor();
 			} elseif ($_POST['confirmation'] === 'comment') {
 				$CommentsManager = new CommentsManager();
 
@@ -127,11 +138,10 @@ class Backend
 				$CommentsManager->deleteReportsFromComment($_POST['id']);
 			}
 		}
-		
 		RenderView::render('template.php', 'backend/deleteView.php');
 	}
 
-	function moderate()
+	public function moderate()
 	{
 		$CommentsManager = new CommentsManager();
 
@@ -152,28 +162,22 @@ class Backend
 
 		if (isset($_GET['idComment']) && $_GET['idComment'] > 0) {
 			//display comment to edit
-			$Comment = $CommentsManager->getOneById($_GET['idComment']);
-			$comment = $Comment->fetchObject('Comment');
+			$comment = $CommentsManager->getOneById($_GET['idComment']);
 
 			RenderView::render('template.php', 'backend/moderateView.php', ['comment' => $comment]);
-
-			$Comment->closeCursor();
 		} else {
 			//display list of reported comment
-			$queryReportedComments = $CommentsManager->getMostReportedComments();
-			$listReportedComments = $queryReportedComments->fetchAll(PDO::FETCH_CLASS, 'Comment');
+			$listReportedComments = $CommentsManager->getMostReportedComments();
 
 			if (isset($message)) {
 				RenderView::render('template.php', 'backend/moderateView.php', ['listReportedComments' => $listReportedComments, 'message' => $message]);
 			} else {
 				RenderView::render('template.php', 'backend/moderateView.php', ['listReportedComments' => $listReportedComments]);
 			}
-
-			$queryReportedComments->closeCursor();
 		}
 	}
 
-	function viewReports()
+	public function viewReports()
 	{
 		$CommentsManager = new CommentsManager();
 
@@ -196,7 +200,5 @@ class Backend
 		} else {
 			RenderView::render('template.php', 'backend/reportsView.php', ['listReports' => $listReports]);
 		}
-
-		$listReports->closeCursor();
 	}
 }

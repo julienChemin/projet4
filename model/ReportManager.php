@@ -1,17 +1,25 @@
 <?php
 
+namespace Chemin\Blog\Model;
+
+use Chemin\Blog\Model\AbstractManager;
+
 abstract class ReportManager extends AbstractManager
 {
-	public static $TABLE_NAME = 'report';
-	public static $TABLE_PK = 'id';
 
 	public function getMostReportedComments()
 	{
-		return $this->sql('
+		$query = $this->sql('
 			SELECT id, idArticle, content, nbReport, author, authorIsAdmin, authorEdit, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit
 			FROM comments
 			WHERE nbReport != 0
 			ORDER BY nbReport DESC');
+
+		$result = $query->fetchAll(\PDO::FETCH_CLASS, static::$OBJECT_TYPE);
+			
+		$query->closeCursor();
+
+		return $result;
 	}
 
 	public function setReport(int $idComment, string $author, string $content, int $nbReportBefore)
@@ -34,7 +42,7 @@ abstract class ReportManager extends AbstractManager
 	public function deleteReport(int $idReport, int $idComment)
 	{
 		if ($idReport > 0 && $idComment > 0) {
-			if ($this->exists($idReport)) {
+			if ($this->reportExists($idReport)) {
 				//delete report
 				$this->sql('
 					DELETE FROM report
@@ -49,6 +57,23 @@ abstract class ReportManager extends AbstractManager
 				$this->setNbReport($idComment, $nbReport);
 
 				return $this;
+			}
+		}
+	}
+
+	public function reportExists(int $id)
+	{
+		if ($id > 0) {
+			$req = $this->sql(
+				'SELECT *
+				 FROM report
+				 WHERE id = :id',
+				[':id' => $id]);
+
+			if ($result = $req->fetch()) {
+				return true;
+			} else {
+				return false;
 			}
 		}
 	}
@@ -80,11 +105,17 @@ abstract class ReportManager extends AbstractManager
 	public function getReportsFromComment(int $idComment)
 	{
 		if ($idComment > 0) {
-			return $this->sql('
+			$query = $this->sql('
 				SELECT id, idReportedComment, author, content, DATE_FORMAT(dateReport, "%d/%m/%Y à %H:%i.%s") AS dateReport
 				FROM report
 				WHERE idReportedComment = :idReportedComment',
 				[':idReportedComment' => $idComment]);
+
+			$result = $query->fetchAll();
+
+			$query->closeCursor();
+
+			return $result;
 		}
 	}
 

@@ -1,17 +1,16 @@
 <?php
 
+namespace Chemin\Blog\Model;
+
 class Frontend
 {
 	public function accueil()
 	{
 		$ArticlesManager = new ArticlesManager();
 
-		$lastArticle = $ArticlesManager->getLastArticle();
-		$article = $lastArticle->fetchObject('Article');
+		$article = $ArticlesManager->getLastArticle();
 
 		RenderView::render('template.php', 'frontend/accueilView.php', ['article' => $article]);
-
-		$lastArticle->closeCursor();
 	}
 
 	public function error(string $error_msg)
@@ -23,12 +22,9 @@ class Frontend
 	{
 		$ArticlesManager = new ArticlesManager();
 
-		$queryArticles = $ArticlesManager->getArticles();
-		$listArticles = $queryArticles->fetchAll(PDO::FETCH_CLASS, 'Article');
+		$listArticles = $ArticlesManager->getArticles();
 
 		RenderView::render('template.php', 'frontend/articlesView.php', ['listArticles' => $listArticles]);
-
-		$queryArticles->closeCursor();
 	}
 
 	public function article()
@@ -37,15 +33,10 @@ class Frontend
 		$CommentsManager = new CommentsManager();
 
 		if ($ArticlesManager->exists($_GET['idArticle'])) {
-			$queryArticle = $ArticlesManager->getOneById($_GET['idArticle']);
-			$article = $queryArticle->fetchObject('Article');
-
-			$queryComments = $CommentsManager->getComments($_GET['idArticle']);
-			$comments=$queryComments->fetchAll(PDO::FETCH_CLASS, 'Comment');
+			$article = $ArticlesManager->getOneById($_GET['idArticle']);
+			$comments = $CommentsManager->getComments($_GET['idArticle']);
 
 			RenderView::render('template.php', 'frontend/articleView.php', ['article' => $article, 'comments' => $comments]);
-
-			$queryComments->closeCursor();
 		} else {
 			throw new Exception('L\'article indiqué n\'existe pas.');
 		}
@@ -66,20 +57,19 @@ class Frontend
 	{
 		$CommentsManager = new CommentsManager();
 
-		$queryComment = $CommentsManager->getOneById($_GET['idComment']);
-		$comment = $queryComment->fetchObject('Comment');
+		$comment = $CommentsManager->getOneById($_GET['idComment']);
 		if (empty($comment)) {
 			throw new Exception('Le commentaire recherché n\'existe pas.');
 		}
 
 		if (isset($_POST['postReportPseudo']) && isset($_POST['postReportContent'])) {
 			//post report
-			$CommentsManager->setReport($_GET['idComment'], htmlspecialchars($_POST['postReportPseudo']),
-				htmlspecialchars($_POST['postReportContent']), $comment->getNbReport());
+			$CommentsManager->setReport(
+				$_GET['idComment'],
+				htmlspecialchars($_POST['postReportPseudo']),
+				htmlspecialchars($_POST['postReportContent']),
+				$comment->getNbReport());
 		}
-
 		RenderView::render('template.php', 'frontend/reportView.php', ['comment' => $comment]);
-
-		$queryComment->closeCursor();
 	}	
 }

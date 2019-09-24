@@ -1,5 +1,7 @@
 <?php
 
+namespace Chemin\Blog\Model;
+
 class RenderView
 {
 	public static function render(string $template, string $view, array $data = null)

@@ -2,15 +2,26 @@
 
 session_start();
 
-function chargerClass($class)
+use \Chemin\Blog\Model\Frontend;
+use \Chemin\Blog\Model\Backend;
+use \Chemin\Blog\Model\ArticlesManager;
+use \Chemin\Blog\Model\CommentsManager;
+use \Chemin\Blog\Model\Article;
+use \Chemin\Blog\Model\Comment;
+use \Chemin\Blog\Model\RenderView;
+use \Chemin\Blog\Model\UserManager;
+
+spl_autoload_register(function($class)
 {
-	if ($class === 'Backend' || $class === 'Frontend') {
-		require 'controller/' . $class . '.php';
+	$arr = str_split($class, 18);
+	$nameClass = $arr[1];
+
+	if ($nameClass === 'Frontend' || $nameClass === 'Backend') {
+		require 'controller/' . $nameClass . '.php';
 	} else {
-		require 'model/' . $class . '.php';
+		require 'model/' . $nameClass . '.php';
 	}
-}
-spl_autoload_register('chargerClass');
+});
 
 $backend = new Backend();
 

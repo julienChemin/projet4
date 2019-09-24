@@ -32,52 +32,36 @@ if (isset($_SESSION['pseudo'])) {
 
 	<?php
 } else {
-	//if user is not connected and try to connect
-	if (isset($_POST['postConnectPseudo']) && isset($_POST['postConnectPassword'])) {
-		if (isset($_POST['stayConnect'])) {
-			//if user want to stay connect
-			setcookie('admin', $_POST['postConnectPseudo'], time()+(365*24*3600), null, null, false, true);
-		}
-
-		if ($userExist) {
-			if ($passwordIsOk) {
-				$_SESSION['pseudo'] = $_POST['postConnectPseudo'];
-			} else {
-				$message = 'Le mot de passe est incorrecte';
-			}
-		} else {
-			$message = 'L\'identifiant est incorrecte';
-		}
-	}
 	//display form to connect
 	?>
 	<h1>Bienvenue dans l'espace d'administration</h1>
 
 	<form method="POST" action="Jean-Forteroche_admin.php">
 		<h2>Entrez vos identifiants de connection</h2>
+		<div>
+			<p>
+				<label for="postConnectPseudo">Identifiant</label>
+				<input type="text" name="postConnectPseudo" required="">
+			</p>
 
-		<p>
-			<label for="postConnectPseudo">Identifiant</label>
-			<input type="text" name="postConnectPseudo" required="">
-		</p>
+			<p>
+				<label for="postConnectPassword">Mot de passe</label>
+				<input type="password" name="postConnectPassword" required="">
+			</p>
 
-		<p>
-			<label for="postConnectPassword">Mot de passe</label>
-			<input type="password" name="postConnectPassword" required="">
-		</p>
+			<p>
+				<label for="stayConnect">Rester connecté</label>
+				<input type="checkbox" name="stayConnect" id="stayConnect">
+			</p>
 
-		<p>
-			<label for="stayConnect">Rester connecté</label>
-			<input type="checkbox" name="stayConnect" id="stayConnect">
-		</p>
-
-		<p>
-			<input type="submit" name="submit" value="connection">
-		</p>
+			<p>
+				<input type="submit" name="submit" value="connection">
+			</p>
+		</div>
 	</form>
 	
 	<?php
-	if (isset($message)) {
-		echo '<p class="infoError">' . $message . '</p>';
+	if (isset($data['message'])) {
+		echo '<p class="infoError">' . $data['message'] . '</p>';
 	}
 }

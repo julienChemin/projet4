@@ -1,7 +1,12 @@
 <?php
 
+namespace Chemin\Blog\Model;
+
+use Chemin\Blog\Model\ReportManager;
+
 class CommentsManager extends ReportManager
 {
+	public static $OBJECT_TYPE = 'Chemin\Blog\Model\Comment';
 	public static $TABLE_NAME = 'comments';
 	public static $TABLE_PK = 'id';
 	public static $TABLE_CHAMPS ='id, idArticle, content, nbReport, author, authorIsAdmin, authorEdit, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit';
@@ -9,12 +14,18 @@ class CommentsManager extends ReportManager
 	public function getComments(int $idArticle)
 	{
 		if ($idArticle > 0) {
-			return $this->sql('
+			$query = $this->sql('
 				SELECT id, idArticle, content, nbReport, author, authorIsAdmin, authorEdit, DATE_FORMAT(datePublication, "%d/%m/%Y à %H:%i.%s") AS datePublication, DATE_FORMAT(dateEdit, "%d/%m/%Y à %H:%i.%s") AS dateEdit
 				FROM comments
 				WHERE idArticle = :idArticle
 				ORDER BY id DESC',
 				[':idArticle' => $idArticle]);
+
+			$result = $query->fetchAll(\PDO::FETCH_CLASS, static::$OBJECT_TYPE);
+			
+			$query->closeCursor();
+
+			return $result;
 		}
 	}
 
