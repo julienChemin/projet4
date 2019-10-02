@@ -46,12 +46,5 @@ tinymce.init({
         formData.append('file', blobInfo.blob(), fileName);
       
         xhr.send(formData);
-    },
-    setup: editor => {
-        editor.on('init', () => {
-            if(document.getElementById("content")){
-                tinymce.activeEditor.setContent(document.getElementById("content").innerHTML);
-            }
-        });
-    },
+    }
 });

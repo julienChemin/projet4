@@ -19,7 +19,7 @@ if (isset($_GET['idArticle'])) {
 				</p>
 
 				<p>
-					<textarea id="tinyMCEtextarea" name="tinyMCEtextarea"></textarea>
+					<textarea id="tinyMCEtextarea" name="tinyMCEtextarea"><?=$data['article']->getContent()?></textarea>
 				</p>
 
 				<p>
@@ -27,10 +27,6 @@ if (isset($_GET['idArticle'])) {
 					<input type="submit" name="submit" value="Editer">
 				</p>
 			</form>
-
-			<div id="content">
-				<?=$data['article']->getContent()?>
-			</div>
 		</section>
 
 		<?php

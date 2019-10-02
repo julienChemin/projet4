@@ -19,7 +19,7 @@ if (isset($_GET['idComment'])) {
 				</p>
 
 				<p>
-					<textarea id="tinyMCEtextarea" name="tinyMCEtextarea"></textarea>
+					<textarea id="tinyMCEtextarea" name="tinyMCEtextarea"><?=$data['comment']->getContent()?></textarea>
 				</p>
 
 				<p>
@@ -27,10 +27,6 @@ if (isset($_GET['idComment'])) {
 					<input type="submit" name="submit" value="Editer">
 				</p>
 			</form>
-
-			<div id="content">
-				<?=$data['comment']->getContent()?>
-			</div>
 		</section>
 		<?php
 	} else {
